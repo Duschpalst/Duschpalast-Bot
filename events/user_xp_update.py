@@ -3,7 +3,7 @@ import time
 
 import discord
 
-from functions import calc_voice_xp
+from functions.calc_voice_xp import calc_voice_xp
 from static import SQL, db, get_client
 
 
@@ -16,15 +16,15 @@ async def first_write_check(user):
         db.commit()
 
 
-async def voice_update(member, before, after):
+async def voice_update(member, before: discord.VoiceState, after: discord.VoiceState):
     if member.bot:
         return
     await first_write_check(member)
 
-    with open('vc.json', 'r') as f:
+    with open('storage/vc.json', 'r') as f:
         data = json.load(f)
 
-    if not member.voice or after.channel.id == 843754571377147934:
+    if not member.voice or after.channel.id == 843754571377147934 or after.self_deaf:
         try:
             SQL.execute(f'UPDATE users SET xp = xp + {await calc_voice_xp(member)} WHERE user_id = {member.id};')
             db.commit()
@@ -34,7 +34,7 @@ async def voice_update(member, before, after):
             return
     else:
         data[str(member.id)] = round(time.time())
-    with open('vc.json', 'w') as f:
+    with open('storage/vc.json', 'w') as f:
         json.dump(data, f)
 
 

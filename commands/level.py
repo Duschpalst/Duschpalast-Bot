@@ -1,14 +1,12 @@
-import json
-import time
-
 import discord
 from PIL import ImageFont
 from discord import Option, Embed
 from discord.ext import commands
 from easy_pil import Editor, load_image_async
 
-from functions import calc_voice_xp
-from static import SQL, db
+from functions.calc_voice_xp import calc_voice_xp
+from permissions import perms
+from static import SQL, db, get_client
 
 
 class Level(commands.Cog):
@@ -99,5 +97,52 @@ class Level(commands.Cog):
         await ctx.respond(file=card)
 
 
+class RemoveLevel(commands.Cog):
+
+    def __init__(self, bot):
+        print(f"loaded {self.__cog_name__} Cog")
+        self.bot = bot
+
+    @commands.slash_command(name="remove-level", description="Lösche Level von einem User")
+    async def cmd(self, ctx, benutzter: Option(discord.member.Member, "Benutzer", required=True), lvl: Option(int, "Zu Löschende Level", required=True)):
+        if not await perms.check(ctx.author, 1):
+            await ctx.respond(embed=Embed(color=discord.Color.red(), title="Du hast keine Rechte für den Befehl!"), ephemeral=True)
+            return
+        user = benutzter
+        if user.bot:
+            await ctx.respond(embed=Embed(color=discord.Color.red(), title="Der Benutzer ist ein Bot"), ephemeral=True)
+            return
+        if lvl < 1:
+            await ctx.respond(embed=Embed(color=discord.Color.red(), title="Ein Level zum Löschen ist minimum"), ephemeral=True)
+            return
+
+        SQL.execute(f'select user_id from users where user_id="{user.id}"')
+        result_userid = SQL.fetchone()
+
+        if result_userid is None:
+            SQL.execute('insert into users(user_id, user_name) values(?,?)', (user.id, str(user),))
+            db.commit()
+
+        SQL.execute(f'SELECT xp FROM users WHERE user_id = {user.id};')
+        xp = SQL.fetchone()[0]
+
+        rxp = lvl * 150
+
+        if rxp > xp:
+            rxp = xp
+            ylvl = 1
+        else:
+            ylvl = rxp // 150 + 1
+
+        SQL.execute(f'UPDATE users SET xp = xp - {rxp} WHERE user_id = {user.id};')
+        db.commit()
+
+        await ctx.respond(embed=Embed(color=discord.Color.green(), title="Fertig", description=f"Altes Level: {xp // 150 + 1}\nGelöschte Level: {lvl}\nJetziges Level: {ylvl}"), ephemeral=True)
+        client = await get_client()
+        channel = await client.fetch_channel(1015678383541211206)
+        await channel.send(embed=Embed(color=discord.Color.red(), title=f"{ctx.author} Löschte Level vom User: {user}", description=f"Altes Level: {xp // 150 + 1}\nGelöschte Level: {lvl}\nJetziges Level: {ylvl}"), ephemeral=True)
+
+
 def setup(client):
     client.add_cog(Level(client))
+    client.add_cog(RemoveLevel(client))

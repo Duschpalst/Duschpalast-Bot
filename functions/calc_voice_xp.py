@@ -5,7 +5,7 @@ import discord
 
 
 async def calc_voice_xp(member):
-    with open('vc.json', 'r') as f:
+    with open('storage/vc.json', 'r') as f:
         data = json.load(f)
 
     call_length = round(time.time()) - data[str(member.id)]

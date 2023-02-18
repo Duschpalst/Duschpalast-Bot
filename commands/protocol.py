@@ -6,6 +6,7 @@ from discord import Embed
 from discord.ext import commands
 from discord.ui import View, Button, InputText, Select
 
+from permissions import perms
 from static import SQL
 
 
@@ -17,6 +18,9 @@ class Protocol(commands.Cog):
 
     @commands.slash_command(name="protokoll", description="Benutzer Protokoll")
     async def cmd(self, ctx):
+        if not await perms.check(ctx.author, 1):
+            await ctx.respond(embed=Embed(color=discord.Color.red(), title="Du hast keine Rechte für den Befehl!"), ephemeral=True)
+            return
         msg = await start_page(ctx.guild)
         await ctx.respond(embed=msg[0], view=msg[1], ephemeral=True)
 
@@ -95,7 +99,7 @@ async def user_dropdown(interaction: discord.Interaction, letters, custom_id):
         custom_id=custom_id,
         placeholder="👨👩 | Wähle den User",
         options=[discord.SelectOption(
-            label=str(x.user),
+            label=str(x),
             value=str(x.id)
         ) for x in interaction.guild.members if x.name.lower().startswith(letters.lower()) if not x.bot
         ])
@@ -116,7 +120,7 @@ async def user_dropdown(interaction: discord.Interaction, letters, custom_id):
 
 async def show_protocols(selectmenu, interaction: discord.Interaction):
     SQL.execute(f'SELECT protocol FROM users WHERE user_id = {selectmenu.values[0]};')
-    res = SQL.fetchone()
+    res = SQL.fetchone()[0]
 
     if res:
         color = discord.Color.green()
@@ -131,9 +135,9 @@ async def show_protocols(selectmenu, interaction: discord.Interaction):
     emb.timestamp = datetime.now()
 
     if res:
-        for x in literal_eval(res[0]):
+        for x in literal_eval(res):
             emb.add_field(name=f"{x[0]}:",
-                          value=f"__Bestrafung:__ `{x[1]}`\n```{x[2]}```",
+                          value=f"Erstellt von: <@{x[1]}>\n__Bestrafung:__ `{x[2]}`\n```{x[3]}```",
                           inline=False)
     else:
         emb.add_field(name=f"ERROR",
@@ -228,19 +232,13 @@ async def add_system_btn(user, interaction: discord.Interaction, date_p=None, pu
 
             await interaction.response.edit_message(view=view)
         elif interaction.custom_id == "protocol":
-            await interaction.response.send_modal(AddProtocolModal(title="Neues Protokoll", custom_id=f"[{user}, '{date_p}', '{punishment}']"))
+            await interaction.response.send_modal(
+                AddProtocolModal(title="Neues Protokoll", custom_id=f"[{user}, '{date_p}', '{punishment}', '{protocol}']"))
         elif interaction.custom_id == "done":
             SQL.execute(f'SELECT protocol FROM users WHERE user_id = {user};')
             arr = literal_eval(SQL.fetchone()[0])
-            arr.append([f"{date_p}", f"{punishment}", {protocol}])
-
-            print(arr)
-
-            print("done")
-            print(date_p)
-            #print(punishment)
-            #print(protocol)
-            #SQL.execute('')
+            arr.append([f"{date_p}", interaction.user.id, f"{punishment}", f"{protocol}"])
+            SQL.execute(f'UPDATE users SET protocol = "{arr}" WHERE user_id = {user};')
             await interaction.response.edit_message(embed=Embed(color=discord.Color.green(), title="Fertig"), view=None)
 
     button1.callback = add_system_callback
@@ -251,6 +249,13 @@ async def add_system_btn(user, interaction: discord.Interaction, date_p=None, pu
     await interaction.response.edit_message(embed=emb, view=view)
 
 
+def get_val(kwargs):
+    user, date_p, punishment, protocol = literal_eval(kwargs.get("custom_id"))
+    if protocol == "None":
+        protocol = None
+    return protocol
+
+
 class AddProtocolModal(discord.ui.Modal):
     def __init__(self, *args, **kwargs):
         super().__init__(
@@ -258,7 +263,7 @@ class AddProtocolModal(discord.ui.Modal):
             InputText(
                 label="Protokol eintrag",
                 placeholder="Gib hier das Protokol für den User ein",
-                value=self.protocol or None
+                value=get_val(kwargs)
             ),
 
             *args,
@@ -266,6 +271,10 @@ class AddProtocolModal(discord.ui.Modal):
         )
 
     async def callback(self, interaction: discord.Interaction):
-        user, date_p, punishment = literal_eval(self.custom_id)
-        self.protocol = self.children[0].value
+        user, date_p, punishment, creator = literal_eval(self.custom_id)
+        if date_p == "None":
+            date_p = None
+        if punishment == "None":
+            punishment = None
+
         await add_system_btn(user, interaction, date_p, punishment, self.children[0].value)
