@@ -1,3 +1,5 @@
+# Es kann sein das die Datei nicht mit der Datei auf dem Server übereinstimmt da bei Test zwecken Funktionen deaktiviert werden oder umgeschrieben werden
+
 # Library Import
 import os
 
@@ -24,8 +26,6 @@ async def on_ready():
     await var_client(client)
     #await self_roles(client)
     #await loops(client)
-    # await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,
-    #                                                       name="Alle euren Problemen zu"))
 
 
 @client.event
@@ -48,12 +48,6 @@ async def on_voice_state_update(member: discord.Member, before: discord.VoiceSta
     if bcg != acg:
         await voice_update(member, before, after)
 
-"""
-@client.event
-async def on_message_edit(before, after):
-    await check_message(after)
-"""
-
 
 @client.event
 async def on_message(message):
@@ -68,9 +62,6 @@ for path, subdirs, files in os.walk('commands'):
             p = path.replace("/", ".")
             # p = path.replace("\\", ".")
             client.load_extension(f"{p}.{name[:-3]}")
-
-#client.load_extension("commands.level")
-#client.load_extension("commands.selfroles")
 
 
 client.run(secret.Test_bot_TOKEN)
