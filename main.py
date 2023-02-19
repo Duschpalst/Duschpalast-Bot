@@ -55,13 +55,17 @@ async def on_message(message):
         return
     await message_update(message)
 
+
+commands_directory = ['commands', 'money_system/commands']
+
 # Import all commands Files
-for path, subdirs, files in os.walk('commands'):
-    for name in files:
-        if name.endswith(".py"):
-            p = path.replace("/", ".")
-            # p = path.replace("\\", ".")
-            client.load_extension(f"{p}.{name[:-3]}")
+for directory in commands_directory:
+    for path, subdirs, files in os.walk(directory):
+        for name in files:
+            if name.endswith(".py"):
+                p = path.replace("/", ".")
+                # p = path.replace("\\", ".")
+                client.load_extension(f"{p}.{name[:-3]}")
 
 
 client.run(secret.Test_bot_TOKEN)
