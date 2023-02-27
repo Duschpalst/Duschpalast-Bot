@@ -8,7 +8,8 @@ import discord
 # Files Import
 import secret
 from events.user_xp_update import voice_update, message_update
-from loop_handler import loops
+from tasks_handler import tasks
+from money_system.treasure_message import treasure
 from static import var_client
 from events.on_join import join
 from storage.create_tables import create_sql_tables
@@ -25,7 +26,7 @@ async def on_ready():
     print("Ich bin on!")
     await var_client(client)
     #await self_roles(client)
-    #await loops(client)
+    #await tasks(client)
 
 
 @client.event
@@ -54,6 +55,7 @@ async def on_message(message):
     if message.author.bot:
         return
     await message_update(message)
+    await treasure(message, message.author)
 
 
 commands_directory = ['commands', 'money_system/commands']

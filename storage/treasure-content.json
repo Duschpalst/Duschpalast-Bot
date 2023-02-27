@@ -1,0 +1,84 @@
+{
+
+  "chest0": {
+    "name": "Gewöhnliche Schatzkiste",
+    "img": "chest_common.png",
+    "percentage": 70,
+
+    "items": {
+      "coins": {
+        "0": {
+          "count": 0,
+          "percentage": 30
+        },
+        "1": {
+          "count": 7,
+          "percentage": 20
+        },
+        "2":{
+          "count": 3,
+          "percentage": 40
+        },
+        "3":{
+          "count": 10,
+          "percentage": 10
+        }
+      }
+    }
+  },
+
+  "chest1": {
+    "name": "Seltene Schatzkiste",
+    "img": "chest_rare.png",
+    "percentage": 29,
+
+    "items": {
+      "coins": {
+        "0": {
+          "count": 0,
+          "percentage": 15
+        },
+        "1": {
+          "count": 70,
+          "percentage": 25
+        },
+        "2": {
+          "count": 30,
+          "percentage": 45
+        },
+        "3": {
+          "count": 100,
+          "percentage": 15
+        }
+      }
+    }
+  },
+
+  "chest2": {
+    "name": "Epische Schatzkiste",
+    "img": "chest_epic.png",
+    "percentage": 1,
+
+    "items": {
+      "coins": {
+        "0": {
+          "count": 0,
+          "percentage": 5
+        },
+        "1": {
+          "count": 700,
+          "percentage": 30
+        },
+        "2":{
+          "count": 300,
+          "percentage": 50
+        },
+        "3": {
+          "count": 1000,
+          "percentage": 15
+        }
+      }
+    }
+  }
+
+}

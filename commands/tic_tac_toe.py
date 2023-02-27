@@ -132,9 +132,7 @@ async def btn_callback(interaction: discord.Interaction):
                                                         description=f"<@{data[id][0][0]}> (X) **VS** <@{data[id][0][1]}> (0)\n{txt}"),
                                             view=view)
 
-    if win:
-        del data[id]
-    elif draw:
+    if win or draw:
         del data[id]
     else:
         data[id] = [data[id][0], turn]

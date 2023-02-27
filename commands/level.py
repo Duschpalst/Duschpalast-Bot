@@ -5,6 +5,7 @@ from discord.ext import commands
 from easy_pil import Editor, load_image_async
 
 from functions.calc_voice_xp import calc_voice_xp
+from functions.get_user_xp_lvl import get_xp_lvl
 from permissions import perms
 from static import SQL, db, get_client
 
@@ -21,23 +22,11 @@ class Level(commands.Cog):
         if user.bot:
             await ctx.respond(embed=Embed(color=discord.Color.red(), title="Der Benutzer ist ein Bot"), ephemeral=True)
             return
-        SQL.execute(f'select user_id from users where user_id="{user.id}"')
-        result_userid = SQL.fetchone()
 
-        if result_userid is None:
-            SQL.execute('insert into users(user_id, user_name) values(?,?)', (user.id, str(user),))
-            db.commit()
-
-        SQL.execute(f'SELECT xp FROM users WHERE user_id = {user.id};')
-        xp = SQL.fetchone()[0]
+        xp, lvl = await get_xp_lvl(user)
 
         SQL.execute(f'SELECT COUNT(*) FROM users WHERE xp > {xp};')
         rank = SQL.fetchone()[0]
-
-        if xp == 0:
-            lvl = xp // 150 + 1
-        else:
-            lvl = (xp - 1) // 150 + 1
 
         f125 = ImageFont.truetype("fonts/ARLRDBD.TTF", 125)
         f100 = ImageFont.truetype("fonts/ARLRDBD.TTF", 100)
