@@ -46,7 +46,7 @@ async def on_voice_state_update(member: discord.Member, before: discord.VoiceSta
     else:
         acg = None
 
-    if bcg != acg:
+    if bcg != acg or before.self_deaf or after.self_deaf:
         await voice_update(member, before, after)
 
 
@@ -55,7 +55,7 @@ async def on_message(message):
     if message.author.bot:
         return
     await message_update(message)
-    await treasure(message, message.author)
+    #await treasure(message, message.author)
 
 
 commands_directory = ['commands', 'money_system/commands']
