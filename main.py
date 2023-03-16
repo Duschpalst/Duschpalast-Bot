@@ -25,8 +25,8 @@ create_sql_tables()
 async def on_ready():
     print("Ich bin on!")
     await var_client(client)
-    #await self_roles(client)
-    #await tasks(client)
+    await self_roles(client)
+    await tasks(client)
 
 
 @client.event
