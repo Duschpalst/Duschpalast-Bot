@@ -8,6 +8,10 @@ SQL = db.cursor()
 
 self_roles_messages_id = [1067919658365243463, 1067919659531255979, 1067919661041188894]
 
+all_items = [
+    "Schaufel",
+    "Hammer"
+]
 
 async def var_client(c):
     global client

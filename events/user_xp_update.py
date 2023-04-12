@@ -3,8 +3,8 @@ import time
 
 import discord
 
-from functions.calc_voice_xp import calc_voice_xp
-from static import SQL, db, get_client
+from utils.user.calc_voice_xp import calc_voice_xp
+from static import SQL, db
 
 
 async def first_write_check(user):

@@ -4,8 +4,8 @@ from discord import Option, Embed
 from discord.ext import commands
 from easy_pil import Editor, load_image_async
 
-from functions.calc_voice_xp import calc_voice_xp
-from functions.get_user_xp_lvl import get_xp_lvl
+from utils.user.calc_voice_xp import calc_voice_xp
+from utils.user.get_user_xp_lvl import get_xp_lvl
 from permissions import perms
 from static import SQL, db, get_client
 
