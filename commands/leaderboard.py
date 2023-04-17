@@ -3,7 +3,7 @@ from PIL import ImageFont
 from discord.ext import commands
 from easy_pil import Editor
 
-from static import SQL, get_client
+from static import SQL
 
 
 class Leaderbord(commands.Cog):
@@ -31,8 +31,7 @@ class Leaderbord(commands.Cog):
             else:
                 lvl = (x[1] - 1) // 150 + 1
 
-            client = await get_client()
-            user_name = await client.fetch_user(x[0])
+            user_name = await self.bot.fetch_user(x[0])
             name = f"{str(user_name.name)[:15]}..." if len(str(user_name.name)) > 15 else str(user_name.name)
 
             background.text((300, y), name, font=f60, color="#EEEEEE", align="left")

@@ -7,9 +7,10 @@ import discord
 
 # Files Import
 import secret
+from events.on_leave import leave
 from events.user_xp_update import voice_update, message_update
 from tasks_handler import tasks
-from money_system.treasure_message import treasure
+# from money_system.treasure_message import treasure
 from static import var_client
 from events.on_join import join
 from storage.create_tables import create_sql_tables
@@ -25,13 +26,17 @@ create_sql_tables()
 async def on_ready():
     print("Ich bin on!")
     await var_client(client)
-    await self_roles(client)
-    await tasks(client)
+    #await self_roles(client)
+    #await tasks(client)
 
 
 @client.event
 async def on_member_join(member):
     await join(member, client)
+
+@client.event
+async def on_member_leave(member):
+    await leave(member, client)
 
 
 @client.event

@@ -7,7 +7,7 @@ from discord.ext import commands
 from discord.ui import View, Button, InputText
 
 from permissions import perms
-from static import SQL, db, get_client
+from static import SQL, db
 from user_interactions.self_roles import self_roles
 
 
@@ -16,6 +16,8 @@ class SelfRoles(commands.Cog):
     def __init__(self, bot):
         print(f"loaded {self.__cog_name__} Cog")
         self.bot = bot
+        global client
+        client = bot
 
     @commands.slash_command(name="selfroles", description="Bearbeite die Self Roles")
     async def cmd(self, ctx):
@@ -135,7 +137,6 @@ async def adding_option(name, icon_id, emoji_name, interaction, id):
     await interaction.response.send_message(embed=Embed(color=discord.Color.green(), title="Erfolgreich!"),
                                             ephemeral=True)
 
-    client = await get_client()
     await self_roles(client)
 
 
@@ -149,7 +150,6 @@ async def remove_option(name, interaction, id):
             ephemeral=True)
         return
 
-    client = await get_client()
     emoji = ""
     for i in client.guilds:
         emoji = discord.utils.get(i.emojis, name=res[1])

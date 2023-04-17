@@ -7,7 +7,7 @@ from easy_pil import Editor, load_image_async
 from utils.user.calc_voice_xp import calc_voice_xp
 from utils.user.get_user_xp_lvl import get_xp_lvl
 from permissions import perms
-from static import SQL, db, get_client
+from static import SQL, db
 
 
 class Level(commands.Cog):
@@ -127,8 +127,7 @@ class RemoveLevel(commands.Cog):
         db.commit()
 
         await ctx.respond(embed=Embed(color=discord.Color.green(), title="Fertig", description=f"Altes Level: {xp // 150 + 1}\nGelöschte Level: {lvl}\nJetziges Level: {ylvl}"), ephemeral=True)
-        client = await get_client()
-        channel = await client.fetch_channel(1015678383541211206)
+        channel = await self.bot.fetch_channel(1015678383541211206)
         await channel.send(embed=Embed(color=discord.Color.red(), title=f"{ctx.author} Löschte Level vom User: {user}", description=f"Altes Level: {xp // 150 + 1}\nGelöschte Level: {lvl}\nJetziges Level: {ylvl}"), ephemeral=True)
 
 

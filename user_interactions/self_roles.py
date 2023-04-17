@@ -3,14 +3,8 @@ import discord
 from discord import Embed
 from discord.ui import Select, View
 
-from static import SQL, get_client, self_roles_messages_id
-
-
-async def get_emoji(emoji_name):
-    client = await get_client()
-    for i in client.guilds:
-        emoji = discord.utils.get(i.emojis, name=emoji_name)
-        return emoji
+from static import SQL, self_roles_messages_id
+from utils.guilds.get_emoji import get_emoji
 
 
 async def callback(interaction, which, selectmenu):
