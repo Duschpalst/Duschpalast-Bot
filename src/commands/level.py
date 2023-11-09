@@ -93,41 +93,30 @@ class RemoveLevel(commands.Cog):
         self.bot = bot
 
     @commands.slash_command(name="remove-level", description="Lösche Level von einem User")
-    async def cmd(self, ctx: discord.ApplicationContext, benutzter: Option(discord.Member, "Benutzer", required=True), lvl: Option(int, "Zu Löschende Level", required=True)):
+    async def cmd(self, ctx: discord.ApplicationContext, benutzter: Option(discord.Member, "Benutzer", required=True), rlvl: Option(int, "Zu Löschende Level", required=True, min_value=1)):
         user = benutzter
         if user.bot:
             await ctx.respond(embed=Embed(color=discord.Color.red(), title="Der Benutzer ist ein Bot"), ephemeral=True)
             return
-        if lvl < 1:
-            await ctx.respond(embed=Embed(color=discord.Color.red(), title="Ein Level zum Löschen ist minimum"), ephemeral=True)
-            return
 
-        SQL.execute(f'select user_id from users where user_id="{user.id}"')
-        result_userid = SQL.fetchone()
+        xp, lvl, percentage = await get_xp_lvl(user)
 
-        if result_userid is None:
-            SQL.execute('insert into users(user_id, user_name) values(?,?)', (user.id, str(user),))
-            db.commit()
-
-        SQL.execute(f'SELECT xp FROM users WHERE user_id = {user.id};')
-        xp = SQL.fetchone()[0]
-
-        rxp = lvl * 150
+        rxp = rlvl * 250 + sum((lvl - i - 1) * 10 for i in range(rlvl))
 
         if rxp > xp:
             rxp = xp
             ylvl = 1
         else:
-            ylvl = rxp // 150 + 1
+            xp, ylvl, percentage = await get_xp_lvl(xp=rxp)
 
         SQL.execute(f'UPDATE users SET xp = xp - {rxp} WHERE user_id = {user.id};')
         db.commit()
 
-        await ctx.respond(embed=Embed(color=discord.Color.green(), title="Fertig", description=f"Altes Level: {xp // 150 + 1}\nGelöschte Level: {lvl}\nJetziges Level: {ylvl}"), ephemeral=True)
+        await ctx.respond(embed=Embed(color=discord.Color.green(), title="Fertig", description=f"Altes Level: {lvl}\nGelöschte Level: {rlvl}\nJetziges Level: {ylvl}"), ephemeral=True)
         channel = await self.bot.fetch_channel(static.channels_id['log'])
-        await channel.send(embed=Embed(color=discord.Color.red(), title=f"{ctx.author} Löschte Level vom User: {user}", description=f"Altes Level: {xp // 150 + 1}\nGelöschte Level: {lvl}\nJetziges Level: {ylvl}"))
+        await channel.send(embed=Embed(color=discord.Color.red(), title=f"{ctx.author} Löschte Level vom User: {user}", description=f"Altes Level: {lvl}\nGelöschte Level: {rlvl}\nJetziges Level: {ylvl}"))
 
 
 def setup(client):
     client.add_cog(Level(client))
-    #client.add_cog(RemoveLevel(client))
+    client.add_cog(RemoveLevel(client))
