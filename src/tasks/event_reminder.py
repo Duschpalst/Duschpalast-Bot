@@ -39,7 +39,7 @@ async def check_events(client: discord.Client, time):
             for event in events:
                 if now.date() == event.start_time.date() and now.hour == event.start_time.hour and now.minute == event.start_time.minute:
                     event_channel = await client.fetch_channel(static.channels_id['events'])
-                    await event_channel.send(f"**<@&843963164056092732> In einer Stunde findet ein Event statt!!** \n{event.url}")
+                    await event_channel.send(f"**<@&843963164056092732> <t:{calendar.timegm(event.start_time.timetuple())}:R> findet ein Event statt!!** \n{event.url}")
 
                     emb = Embed(color=0x00ffff,
                                 title=f"**Bald findet das Event ```{event.name}``` statt!!**")
