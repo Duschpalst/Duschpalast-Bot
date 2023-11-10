@@ -89,7 +89,7 @@ class Level(commands.Cog):
 class RemoveLevel(commands.Cog):
 
     def __init__(self, bot):
-        print(f"loaded {self.__cog_name__} Cog")
+        print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
     @commands.has_permissions(kick_members=True)
