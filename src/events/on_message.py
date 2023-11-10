@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+import static
 from static import SQL, db
 from utils.user.first_db_write_check import first_write_check
 from utils.user.lvl_roles import lvl_roles
@@ -19,7 +20,7 @@ class On_Message(commands.Cog):
 
         await first_write_check(message.author)
 
-        role = discord.utils.get(message.guild.roles, id=853208244721287179)
+        role = discord.utils.get(message.guild.roles, id=static.boster_role)
         if role in message.author.roles:
             multiplier = 2
         else:
@@ -28,7 +29,7 @@ class On_Message(commands.Cog):
         SQL.execute(f'UPDATE users SET xp = xp + {multiplier * 1} WHERE user_id = {message.author.id}')
         db.commit()
 
-        if self.bot.user.id == 1054069404410855466:
+        if self.bot.user.id == static.bot_id:
             await lvl_roles(message.author)
 
 

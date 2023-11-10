@@ -17,7 +17,7 @@ class Self_Roles(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        if self.bot.user.id == 1054069404410855466:
+        if self.bot.user.id == static.bot_id:
             self_roles(self.bot)
 
 

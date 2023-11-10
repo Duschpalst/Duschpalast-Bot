@@ -24,6 +24,7 @@ def create_sql_tables():
                 'user_id INTEGER NOT NULL UNIQUE,'
                 'user_name TEXT NOT NULL,'
                 'xp INTEGER DEFAULT 0,'
+                'coin INTEGER DEFAULT 0,'
                 'protocol TEXT);')
 
     db.commit()

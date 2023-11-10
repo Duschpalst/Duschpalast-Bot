@@ -18,7 +18,7 @@ class Event_Reminder(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        if self.bot.user.id == 1054069404410855466:
+        if self.bot.user.id == static.bot_id:
             self.bot.loop.create_task(check_events(self.bot, 60))
 
 

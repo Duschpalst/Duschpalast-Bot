@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 
+import static
 from utils.guilds.update_invites import update_invites
 
 
@@ -12,7 +13,7 @@ class On_Invite_Create(commands.Cog):
 
     @commands.Cog.listener()
     async def on_invite_create(self, member: discord.Member):
-        if self.bot.user.id == 1054069404410855466:
+        if self.bot.user.id == static.bot_id:
             await update_invites(self.bot)
 
 

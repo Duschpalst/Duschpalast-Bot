@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 import time
 
+import static
 from static import SQL, db
 from utils.user.calc_voice_xp import calc_voice_xp
 from utils.user.first_db_write_check import first_write_check
@@ -28,7 +29,7 @@ class On_Voice_State_Update(commands.Cog):
         with open('assets/json/vc.json', 'r') as f:
             data = json.load(f)
 
-        if not member.voice or after.channel.id == 843754571377147934 or after.self_deaf:
+        if not member.voice or after.channel.id == static.channels_id['afk'] or after.self_deaf:
             try:
                 SQL.execute(f'UPDATE users SET xp = xp + {await calc_voice_xp(member)} WHERE user_id = {member.id};')
                 db.commit()

@@ -20,7 +20,7 @@ async def on_ready():
     print("Ich bin on!")
 
     # Code der nur aufm Main Bot funktioniert und nicht auf dem Test Bot
-    if client.user.id == 1054069404410855466:
+    if client.user.id == static.bot_id:
         await update_invites(client)
 
 
