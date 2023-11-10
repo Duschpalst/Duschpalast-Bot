@@ -92,6 +92,7 @@ class RemoveLevel(commands.Cog):
         print(f"loaded {self.__cog_name__} Cog")
         self.bot = bot
 
+    @commands.has_permissions(kick_members=True)
     @commands.slash_command(name="remove-level", description="Lösche Level von einem User")
     async def cmd(self, ctx: discord.ApplicationContext, benutzter: Option(discord.Member, "Benutzer", required=True), rlvl: Option(int, "Zu Löschende Level", required=True, min_value=1)):
         user = benutzter

@@ -15,6 +15,7 @@ class Protocol(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
+    @commands.has_permissions(kick_members=True)
     @commands.slash_command(name="protokoll", description="Benutzer Protokoll")
     async def cmd(self, ctx: discord.ApplicationContext):
         msg = await start_page(ctx.guild)

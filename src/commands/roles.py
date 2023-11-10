@@ -10,6 +10,7 @@ class Roles(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
+    @commands.has_permissions(kick_members=True)
     @commands.slash_command(name="roles", description="Gebe/Lösche Jedem eine Rolle")
     async def cmd(self, ctx, givetake: Option(str, "Give or Take", autocomplete=basic_autocomplete(["Give", "Take"]), required=True), role: Option(discord.Role, "Role", required=True)):
         guild: discord.Guild = ctx.guild
