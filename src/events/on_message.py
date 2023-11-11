@@ -27,6 +27,7 @@ class On_Message(commands.Cog):
             multiplier = 1
 
         SQL.execute(f'UPDATE users SET xp = xp + {multiplier * 1} WHERE user_id = {message.author.id}')
+        SQL.execute(f'UPDATE users SET msg_count = msg_count + 1 WHERE user_id = {message.author.id}')
         db.commit()
 
         if self.bot.user.id == static.bot_id:

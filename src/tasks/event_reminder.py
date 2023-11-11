@@ -18,8 +18,8 @@ class Event_Reminder(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        if self.bot.user.id == static.bot_id:
-            self.bot.loop.create_task(check_events(self.bot, 60))
+        #if self.bot.user.id == static.bot_id:
+        self.bot.loop.create_task(check_events(self.bot, 5))
 
 
 def setup(client):
@@ -29,7 +29,7 @@ def setup(client):
 async def check_events(client: discord.Client, time):
     while True:
         try:
-            guild: discord.Guild = (await client.fetch_channel(static.channels_id['welcome'])).guild
+            guild: discord.Guild = (await client.fetch_channel(1002953426977697893)).guild#static.channels_id['welcome'])).guild
             events = await guild.fetch_scheduled_events()
 
             

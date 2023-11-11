@@ -55,7 +55,7 @@ async def welcome_msg(member, client):
     background.text((256, 310), f"Willkommen", font=f75, color="#FFFFFF", align="center")
     background.text((256, 400), name, font=f50, color="#FFFFFF", align="center")
 
-    card = discord.File(fp=background.image_bytes, filename="img/levelcard.png")
+    card = discord.File(fp=background.image_bytes, filename="welcome.png")
     welcome_channel = await client.fetch_channel(static.channels_id['welcome'])
     await welcome_channel.send(f"**Willkommen auf :shower:𝖣𝗎𝗌𝖼𝗁𝗉𝖺𝗅𝖺𝗌𝗍:shower:, {member.mention}!!**", file=card)
 

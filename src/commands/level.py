@@ -26,7 +26,7 @@ class Level(commands.Cog):
         xp, lvl, percentage = await get_xp_lvl(user)
 
         SQL.execute(f'SELECT COUNT(*) FROM users WHERE xp > {xp};')
-        rank = SQL.fetchone()[0]
+        rank = SQL.fetchone()[0] + 1
 
         f125 = ImageFont.truetype("assets/fonts/ARLRDBD.TTF", 125)
         f100 = ImageFont.truetype("assets/fonts/ARLRDBD.TTF", 100)
@@ -77,12 +77,12 @@ class Level(commands.Cog):
             user = user.name
         
         name = f"{str(user)[:20]}..." if len(str(user)) > 20 else str(user)
-        background.text((1955, 50), f"Rank: #{rank + 1}", font=f125, color="#EEEEEE", align="right")
+        background.text((1955, 50), f"Rank: #{rank}", font=f125, color="#EEEEEE", align="right")
         background.text((725, 370), name, font=f100, color="#FFFFFF", align="left")
         background.text((725, 555), f"Level: {lvl}", font=f100, color="#f10553", align="left")
         background.text((1955, 555), f"{xp} / {250 + (lvl-1) * 10} XP", font=f60, color="#EEEEEE", align="right")
 
-        card = discord.File(fp=background.image_bytes, filename="img/levelcard.png")
+        card = discord.File(fp=background.image_bytes, filename="levelcard.png")
         await ctx.respond(file=card)
 
 
