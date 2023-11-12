@@ -19,7 +19,7 @@ class Event_Reminder(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         #if self.bot.user.id == static.bot_id:
-        self.bot.loop.create_task(check_events(self.bot, 5))
+        self.bot.loop.create_task(check_events(self.bot, 60))
 
 
 def setup(client):
@@ -29,7 +29,7 @@ def setup(client):
 async def check_events(client: discord.Client, time):
     while True:
         try:
-            guild: discord.Guild = (await client.fetch_channel(1002953426977697893)).guild#static.channels_id['welcome'])).guild
+            guild: discord.Guild = (await client.fetch_channel(static.channels_id['welcome'])).guild
             events = await guild.fetch_scheduled_events()
 
             
@@ -37,7 +37,8 @@ async def check_events(client: discord.Client, time):
             now = datetime.now().replace(tzinfo=utc)
 
             for event in events:
-                if now.date() == event.start_time.date() and now.hour == event.start_time.hour and now.minute == event.start_time.minute:
+                time_difference  = calendar.timegm(event.start_time.timetuple()) - calendar.timegm(now.timetuple())
+                if -30 < time_difference < 30:
                     event_channel = await client.fetch_channel(static.channels_id['events'])
                     await event_channel.send(f"**<@&843963164056092732> <t:{calendar.timegm(event.start_time.timetuple())}:R> findet ein Event statt!!** \n{event.url}")
 
