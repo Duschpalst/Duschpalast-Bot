@@ -18,7 +18,7 @@ class Level(commands.Cog):
 
     @commands.slash_command(name="level", description="Zeige dir dein Aktuelles Level an")
     async def cmd(self, ctx: discord.ApplicationContext, benutzter: Option(discord.Member, "Benutzer", required=False)):
-        user = benutzter or ctx.author
+        user = benutzter or ctx.user
         if user.bot:
             await ctx.respond(embed=Embed(color=discord.Color.red(), title="Der Benutzer ist ein Bot"), ephemeral=True)
             return
@@ -115,7 +115,7 @@ class RemoveLevel(commands.Cog):
 
         await ctx.respond(embed=Embed(color=discord.Color.green(), title="Fertig", description=f"Altes Level: {lvl}\nGelöschte Level: {rlvl}\nJetziges Level: {ylvl}"), ephemeral=True)
         channel = await self.bot.fetch_channel(static.channels_id['log'])
-        await channel.send(embed=Embed(color=discord.Color.red(), title=f"{ctx.author} Löschte Level vom User: {user}", description=f"Altes Level: {lvl}\nGelöschte Level: {rlvl}\nJetziges Level: {ylvl}"))
+        await channel.send(embed=Embed(color=discord.Color.red(), title=f"{ctx.user} Löschte Level vom User: {user}", description=f"Altes Level: {lvl}\nGelöschte Level: {rlvl}\nJetziges Level: {ylvl}"))
 
 
 def setup(client):

@@ -15,7 +15,7 @@ class On_Join(commands.Cog):
 
     @commands.Cog.listener()
     async def on_join(self, member: discord.Member):
-        await self.bot.change_presence(activity=discord.Game(name=f"👋 {member}"))
+        await self.bot.change_presence(activity=discord.Game(name=f"👋 {member.name}"))
 
         await welcome_msg(member, self.bot)
         await invite_log(member, self.bot)

@@ -5,6 +5,7 @@ import static
 from static import SQL, db
 from utils.user.first_db_write_check import first_write_check
 from utils.user.lvl_roles import lvl_roles
+from utils.user.lvl_up_rewards import lvl_up_rewards
 
 
 class On_Message(commands.Cog):
@@ -15,23 +16,26 @@ class On_Message(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
-        if message.author.bot:
+        user = message.author
+        if user.bot:
             return
 
-        await first_write_check(message.author)
+        await first_write_check(user)
 
         role = discord.utils.get(message.guild.roles, id=static.boster_role)
-        if role in message.author.roles:
-            multiplier = 2
+        if role in user.roles:
+            xp = 2
         else:
-            multiplier = 1
+            xp = 1
 
-        SQL.execute(f'UPDATE users SET xp = xp + {multiplier * 1} WHERE user_id = {message.author.id}')
-        SQL.execute(f'UPDATE users SET msg_count = msg_count + 1 WHERE user_id = {message.author.id}')
+        await lvl_up_rewards(user, xp)
+
+        SQL.execute(f'UPDATE users SET xp = xp + {xp} WHERE user_id = {user.id}')
+        SQL.execute(f'UPDATE users SET msg_count = msg_count + 1 WHERE user_id = {user.id}')
         db.commit()
 
         if self.bot.user.id == static.bot_id:
-            await lvl_roles(message.author)
+            await lvl_roles(user)
 
 
 

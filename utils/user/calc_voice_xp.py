@@ -5,6 +5,7 @@ import discord
 
 import static
 from static import SQL, db
+from utils.user.lvl_up_rewards import lvl_up_rewards
 
 
 async def calc_voice_xp(user):
@@ -19,4 +20,6 @@ async def calc_voice_xp(user):
     if role in user.roles:
         multiplier = 2
 
-    return multiplier * ((call_length // 300 * 10) + (call_length // 3600 * 5))
+    xp = multiplier * ((call_length // 300 * 10) + (call_length // 3600 * 5))
+    await lvl_up_rewards(user, xp)
+    return xp

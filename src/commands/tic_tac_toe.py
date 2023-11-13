@@ -15,7 +15,7 @@ class TicTacToe(commands.Cog):
     @commands.slash_command(name="tic-tac-toe", description="Tic Tac Toe")
     async def cmd(self, ctx: discord.ApplicationContext, benutzter: Option(discord.Member, "Benutzer", required=True)):
         user2 = benutzter
-        user1 = ctx.author
+        user1 = ctx.user
         if user1 == user2:
             await ctx.respond(
                 embed=Embed(color=discord.Color.red(), title="Du kannst nicht gegen dich selber Spielen!"),

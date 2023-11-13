@@ -18,7 +18,7 @@ class Stats(commands.Cog):
     @commands.slash_command(name="stats", description="Zeige dir deine Stats vom Server an")
     async def cmd(self, ctx: discord.ApplicationContext):
         await ctx.response.defer()
-        user: discord.User = ctx.author
+        user: discord.User = ctx.user
 
         SQL.execute(f'SELECT coin, msg_count, vc_time FROM users WHERE user_id = {user.id}')
         coins, msg_count, vc_time = SQL.fetchone()
