@@ -48,7 +48,9 @@ async def color_picker(client):
         booster_role = discord.utils.get(interaction.guild.roles, id=static.roles_id['booster'])
         vip_role = discord.utils.get(interaction.guild.roles, id=static.roles_id['vip'])
 
-        if booster_role in user.roles or vip_role in user.roles:
+        if booster_role in user.roles:
+            cost = 25
+        elif vip_role in user.roles:
             cost = 50
         else:
             cost = 100
@@ -87,7 +89,7 @@ async def color_picker(client):
     button2.callback = custom_btn_callback
 
     txt = ("## __***Farbe mit der Du auf den Server angezeigt wirst:***__\n"
-           "> Kostet `100` Duschcoins (für Server Booster und Vip die Hälfte)\n"
+           "> Kostet `100` Duschcoins<:duschcoin:1095835086403940352> (für Vips die Hälfte und Server Booster ein Viertel)\n"
            "> Benutzerdefinierte Farbe nur für Server Booster und Vip")
 
     channel = await client.fetch_channel(1067748613800853555)
@@ -214,7 +216,13 @@ async def choose_color_callback(interaction: discord.Interaction):
 async def custom_role(interaction, r, g, b):
     await remove_roles_(interaction)
 
-    SQL.execute(f'UPDATE users SET coin = coin - 50 WHERE user_id = {interaction.user.id}')
+    booster_role = discord.utils.get(interaction.guild.roles, id=static.roles_id['booster'])
+    if booster_role in interaction.user.roles:
+        cost = 25
+    else:
+        cost = 50
+
+    SQL.execute(f'UPDATE users SET coin = coin - {cost} WHERE user_id = {interaction.user.id}')
     db.commit()
 
     color = '#{:02x}{:02x}{:02x}'.format(r, g, b).upper()
@@ -235,4 +243,3 @@ async def custom_role(interaction, r, g, b):
         embed=Embed(color=0x00ff00, title="Fertig, Deine Farbe wurde aktualisiert",
                     description="Du kannst nun die nachricht löschen"),
         view=None)
-
