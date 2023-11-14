@@ -22,7 +22,7 @@ class On_Message(commands.Cog):
 
         await first_write_check(user)
 
-        role = discord.utils.get(message.guild.roles, id=static.boster_role)
+        role = discord.utils.get(message.guild.roles, id=static.roles_id['booster'])
         if role in user.roles:
             xp = 2
         else:

@@ -15,7 +15,7 @@ async def calc_voice_xp(user):
     call_length = round(time.time()) - data[str(user.id)]
     SQL.execute(f'UPDATE users SET vc_time = vc_time + {call_length} WHERE user_id = {user.id}')
     db.commit()
-    role = discord.utils.get(user.guild.roles, id=static.boster_role)
+    role = discord.utils.get(user.guild.roles, id=static.roles_id['booster'])
     multiplier = 1
     if role in user.roles:
         multiplier = 2
