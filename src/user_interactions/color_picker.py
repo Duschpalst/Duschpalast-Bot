@@ -92,7 +92,7 @@ async def color_picker(client):
            "> Kostet `100` Duschcoins<:duschcoin:1095835086403940352> (für Vips die Hälfte und Server Booster ein Viertel)\n"
            "> Benutzerdefinierte Farbe nur für Server Booster und Vip")
 
-    channel = await client.fetch_channel(1067748613800853555)
+    channel = await client.fetch_channel(static.channels_id['self_roles'])
     await (await channel.fetch_message(color_picker_message_id)).edit(txt, view=view)
 
 
