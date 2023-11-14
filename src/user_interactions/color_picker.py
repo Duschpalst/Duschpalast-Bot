@@ -33,9 +33,9 @@ async def color_picker(client):
     colors = Select(
         placeholder=f"🎨Farben",
         options=[discord.SelectOption(
-            label=x[0][1:],
-            emoji=x[0][:1],
-            value=str(x[1])
+            label=x[0],
+            emoji=x[1],
+            value=str(x[2])
         ) for x in res
         ],
         min_values=0,

@@ -22,6 +22,10 @@
 
 ## FAQ
 
+### How the Level System work
+- **Base XP for a Level:** 250 XP
+- **XP Increment per Level:** 10 XP
+
 ### How to Earn XP
 - **For Server Booster: Multiply XP by 2**
 - **Per message:** 1 XP
