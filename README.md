@@ -1,6 +1,6 @@
 # Duschpalast-Bot
 
-| Commands    | Permission required |
+| Command     | Permission required |
 |-------------|:-------------------:|
 | clear       |       &check;       |
 | daily       |       &cross;       |
