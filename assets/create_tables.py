@@ -2,6 +2,10 @@ from static import SQL, db
 
 
 def create_sql_tables():
+    SQL.execute('CREATE TABLE color_picker('
+	            'name TEXT NOT NULL UNIQUE,'
+	            'role_id INTEGER NOT NULL UNIQUE);')
+
     SQL.execute('CREATE TABLE IF NOT EXISTS self_roles_gender('
                 'name TEXT NOT NULL UNIQUE,'
                 'role_id INTEGER NOT NULL UNIQUE);')
@@ -25,6 +29,9 @@ def create_sql_tables():
                 'user_name TEXT NOT NULL,'
                 'xp INTEGER DEFAULT 0,'
                 'coin INTEGER DEFAULT 0,'
-                'protocol TEXT);')
+                'protocol TEXT,'
+                'msg_count INTEGER DEFAULT 0,'
+                'vc_time INTEGER DEFAULT 0,'
+	            '"daily" TEXT);')
 
     db.commit()
