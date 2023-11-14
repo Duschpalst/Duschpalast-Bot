@@ -2,7 +2,7 @@ from static import SQL, db
 
 
 def create_sql_tables():
-    SQL.execute('CREATE TABLE color_picker('
+    SQL.execute('CREATE TABLE IF NOT EXISTS color_picker('
 	            'name TEXT NOT NULL UNIQUE,'
 	            'role_id INTEGER NOT NULL UNIQUE);')
 

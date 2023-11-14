@@ -4,6 +4,7 @@
 |-------------|:-------------------:|
 | clear       |       &check;       |
 | daily       |       &cross;       |
+| faq         |       &cross;       |
 | leaderboard |       &cross;       |
 | level       |       &cross;       |
 | protokoll   |       &check;       |
