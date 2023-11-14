@@ -34,7 +34,7 @@
 - **Using the Command /daily: Get 15 to 50 XP once per day**
 - Comming Soon: Games
 
-### How to Duschcoins
+### How to Earn Duschcoins
 - **Using the Command /daily: Get 50 to 100 Duschcoins once per day**
 
 #### For support or questions, contact me on [Discord](https://discord.com/users/697224731157332028).
