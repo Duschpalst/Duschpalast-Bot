@@ -252,7 +252,7 @@ async def custom_role(interaction, r, g, b):
             return
 
     role = await interaction.guild.create_role(name=color, color=discord.Color.from_rgb(r, g, b), permissions=discord.Permissions.none())
-    await role.edit(position=(interaction.guild.get_role(static.roles_id['bot']).position - 1))
+    await role.edit(position=interaction.guild.get_role(static.roles_id['bot']).position)
     await interaction.user.add_roles(role)
 
     await interaction.response.edit_message(
