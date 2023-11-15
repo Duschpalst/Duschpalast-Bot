@@ -12,11 +12,11 @@ async def add_last_transaction(user: discord.Member, add_remove, reason, ammount
     else:
         transactions = []
 
-    transac = [add_remove, reason, ammount]
+    transac = [add_remove, ammount, reason]
     transactions.insert(0, transac)
 
     if len(transactions) > 3:
         transactions.pop()
 
-    SQL.execute(f'UPDATE users SET transactions = {transactions} WHERE user_id = {user.id}')
+    SQL.execute(f'UPDATE users SET transactions = "{transactions}" WHERE user_id = {user.id}')
     db.commit()
