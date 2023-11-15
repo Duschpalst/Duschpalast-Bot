@@ -137,9 +137,14 @@ async def custom_btn_callback(interaction):
             ephemeral=True)
         return
 
+    if booster_role in interaction.user.roles:
+        cost = 25
+    else:
+        cost = 50
+
     SQL.execute(f'SELECT coin FROM users WHERE user_id = {user.id}')
     coins = SQL.fetchone()[0]
-    if coins < 50:
+    if coins < cost:
         await interaction.response.send_message(
             embed=Embed(color=discord.Color.red(), title="Du hast nicht genug Coins"),
             ephemeral=True)
@@ -216,13 +221,21 @@ async def choose_color_callback(interaction: discord.Interaction):
 
 
 async def custom_role(interaction, r, g, b):
-    await remove_roles_(interaction)
-
     booster_role = discord.utils.get(interaction.guild.roles, id=static.roles_id['booster'])
     if booster_role in interaction.user.roles:
         cost = 25
     else:
         cost = 50
+
+    SQL.execute(f'SELECT coin FROM users WHERE user_id = {interaction.user.id}')
+    coins = SQL.fetchone()[0]
+    if coins < cost:
+        await interaction.response.send_message(
+            embed=Embed(color=discord.Color.red(), title="Du hast nicht genug Coins"),
+            ephemeral=True)
+        return
+
+    await remove_roles_(interaction)
 
     await add_last_transaction(interaction.user, 'remove', 'Farbe auf dem Server gekauft', cost)
     SQL.execute(f'UPDATE users SET coin = coin - {cost} WHERE user_id = {interaction.user.id}')
