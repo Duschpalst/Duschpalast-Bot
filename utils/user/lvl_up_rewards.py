@@ -5,8 +5,8 @@ from utils.user.get_user_xp_lvl import get_xp_lvl
 
 
 async def lvl_up_rewards(user: discord.User, xp_add):
-    xp, lvl_before, percentage = await get_xp_lvl(user)
-    xp, lvl_after, percentage = await get_xp_lvl(xp=(xp+xp_add))
+    xp, lvl_before, rxp, percentage = await get_xp_lvl(user)
+    xp, lvl_after, rxp, percentage = await get_xp_lvl(xp=(xp+xp_add))
 
     if lvl_before == lvl_after:
         return

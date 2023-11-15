@@ -23,4 +23,4 @@ async def get_xp_lvl(user: discord.Member =None, xp=None):
 
     percentage = 100 / base_xp * rxp
 
-    return xp, lvl, percentage
+    return xp, lvl, rxp, percentage

@@ -27,7 +27,7 @@ class Leaderbord(commands.Cog):
 
         y = 484
         for x in res:
-            xp, lvl, percentage = await get_xp_lvl(xp=x[1])
+            xp, lvl, rxp, percentage = await get_xp_lvl(xp=x[1])
 
             user_name = await self.bot.fetch_user(x[0])
             name = f"{str(user_name.name)[:15]}..." if len(str(user_name.name)) > 15 else str(user_name.name)

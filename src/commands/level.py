@@ -23,7 +23,7 @@ class Level(commands.Cog):
             await ctx.respond(embed=Embed(color=discord.Color.red(), title="Der Benutzer ist ein Bot"), ephemeral=True)
             return
 
-        xp, lvl, percentage = await get_xp_lvl(user)
+        xp, lvl, rxp, percentage = await get_xp_lvl(user)
 
         SQL.execute(f'SELECT COUNT(*) FROM users WHERE xp > {xp};')
         rank = SQL.fetchone()[0] + 1
@@ -47,7 +47,7 @@ class Level(commands.Cog):
 
         if user.voice:
             Sxp = await calc_voice_xp(user) + xp
-            xp, Slvl, Spercentage = await get_xp_lvl(xp=Sxp)
+            xp, Slvl, rxp, Spercentage = await get_xp_lvl(xp=Sxp)
 
             if Slvl - lvl != 0:
                 background.text((2000, 463), f"+{Slvl - lvl}", font=f125, color="#323981", align="left")
@@ -80,7 +80,7 @@ class Level(commands.Cog):
         background.text((1955, 50), f"Rank: #{rank}", font=f125, color="#EEEEEE", align="right")
         background.text((725, 370), name, font=f100, color="#FFFFFF", align="left")
         background.text((725, 555), f"Level: {lvl}", font=f100, color="#f10553", align="left")
-        background.text((1955, 555), f"{xp} / {250 + (lvl-1) * 10} XP", font=f60, color="#EEEEEE", align="right")
+        background.text((1955, 555), f"{rxp} / {250 + (lvl-1) * 10} XP", font=f60, color="#EEEEEE", align="right")
 
         card = discord.File(fp=background.image_bytes, filename="levelcard.png")
         await ctx.respond(file=card)
@@ -100,17 +100,17 @@ class RemoveLevel(commands.Cog):
             await ctx.respond(embed=Embed(color=discord.Color.red(), title="Der Benutzer ist ein Bot"), ephemeral=True)
             return
 
-        xp, lvl, percentage = await get_xp_lvl(user)
+        xp, lvl, rxp, percentage = await get_xp_lvl(user)
 
-        rxp = rlvl * 250 + sum((lvl - i - 1) * 10 for i in range(rlvl))
+        remove_xp = rlvl * 250 + sum((lvl - i - 1) * 10 for i in range(rlvl))
 
-        if rxp > xp:
-            rxp = xp
+        if remove_xp > xp:
+            remove_xp = xp
             ylvl = 1
         else:
-            xp, ylvl, percentage = await get_xp_lvl(xp=rxp)
+            xp, ylvl, rxp, percentage = await get_xp_lvl(xp=remove_xp)
 
-        SQL.execute(f'UPDATE users SET xp = xp - {rxp} WHERE user_id = {user.id};')
+        SQL.execute(f'UPDATE users SET xp = xp - {remove_xp} WHERE user_id = {user.id};')
         db.commit()
 
         await ctx.respond(embed=Embed(color=discord.Color.green(), title="Fertig", description=f"Altes Level: {lvl}\nGelöschte Level: {rlvl}\nJetziges Level: {ylvl}"), ephemeral=True)

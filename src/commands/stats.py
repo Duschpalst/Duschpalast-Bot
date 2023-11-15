@@ -23,7 +23,7 @@ class Stats(commands.Cog):
         SQL.execute(f'SELECT coin, msg_count, vc_time FROM users WHERE user_id = {user.id}')
         coins, msg_count, vc_time = SQL.fetchone()
 
-        xp, lvl, percentage = await get_xp_lvl(user)
+        xp, lvl, rxp, percentage = await get_xp_lvl(user)
         SQL.execute(f'SELECT COUNT(*) FROM users WHERE xp > {xp};')
         rank = SQL.fetchone()[0] + 1
 

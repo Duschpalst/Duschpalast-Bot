@@ -5,7 +5,7 @@ from utils.user.get_user_xp_lvl import get_xp_lvl
 
 
 async def lvl_roles(member: discord.Member):
-    xp, lvl, percentage = await get_xp_lvl(member)
+    xp, lvl, rxp, percentage = await get_xp_lvl(member)
 
     if lvl < 25:
         result = 0
