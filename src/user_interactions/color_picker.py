@@ -7,6 +7,7 @@ from discord.ui import Select, View, Button
 
 import static
 from static import SQL, db, color_picker_message_id
+from utils.user.add_last_transaction import add_last_transaction
 
 
 class Color_Picker(commands.Cog):
@@ -63,6 +64,7 @@ async def color_picker(client):
                 ephemeral=True)
             return
 
+        await add_last_transaction(user, 'remove', 'Farbe auf dem Server gekauft', cost)
         SQL.execute(f'UPDATE users SET coin = coin - {cost} WHERE user_id = {user.id}')
         db.commit()
 
@@ -222,6 +224,7 @@ async def custom_role(interaction, r, g, b):
     else:
         cost = 50
 
+    await add_last_transaction(interaction.user, 'remove', 'Farbe auf dem Server gekauft', cost)
     SQL.execute(f'UPDATE users SET coin = coin - {cost} WHERE user_id = {interaction.user.id}')
     db.commit()
 

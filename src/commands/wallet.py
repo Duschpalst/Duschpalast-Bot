@@ -1,3 +1,4 @@
+from ast import literal_eval
 from datetime import datetime
 import discord
 from discord import Embed
@@ -33,12 +34,24 @@ class Wallet(commands.Cog):
         emb.add_field(name="**• Duschcoins<:duschcoin:1174139658712649729>**",
                       value=f"**Du besitzt  `{coins}` Duschcoins**")
 
-        emb.add_field(name="**• Rank**",
-                      value=f"Du bist `{rank}` Rank",
+        emb.add_field(name="**• Rang**",
+                      value=f"Du bist auf Rang `{rank}` ",
                       inline=False)
 
-        emb.add_field(name="**• Letzte Transaktion**",
-                      value=f"Coming Soon",
+        SQL.execute(f'SELECT transactions FROM users WHERE user_id = {user.id}')
+        transactions = SQL.fetchone()[0]
+        if transactions:
+            transactions = literal_eval(transactions)
+            t = ""
+            for transac in transactions:
+                emoji = "<:green_plus:1174460580745191434>" if transac[0] == 'add' else "<:red_minus:1174460579562401832>"
+
+                t += f"{emoji}`{transac[1]}` {transac[2]}\n"
+        else:
+            t = "Du hast bis jetzt noch Keine Transaktionen gemacht"
+
+        emb.add_field(name="**• Letzte Transaktion📈📉**",
+                      value=f"{t}",
                       inline=False)
 
         emb.set_footer(text=static.standard_footer)

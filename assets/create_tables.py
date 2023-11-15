@@ -30,9 +30,10 @@ def create_sql_tables():
                 'user_name TEXT NOT NULL,'
                 'xp INTEGER DEFAULT 0,'
                 'coin INTEGER DEFAULT 0,'
+                'transactions TEXT,'
                 'protocol TEXT,'
                 'msg_count INTEGER DEFAULT 0,'
                 'vc_time INTEGER DEFAULT 0,'
-	            '"daily" TEXT);')
+	            'daily TEXT);')
 
     db.commit()

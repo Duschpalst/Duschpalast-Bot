@@ -7,6 +7,7 @@ from discord.ext import commands
 
 import static
 from static import SQL, db
+from utils.user.add_last_transaction import add_last_transaction
 
 
 class Daily(commands.Cog):
@@ -68,7 +69,7 @@ class Daily(commands.Cog):
 
         emb.timestamp = datetime.utcnow()
 
-
+        await add_last_transaction(user, 'add', 'Tägiche Belohnung abgeholt', coins)
         await ctx.respond(embed=emb, ephemeral=True)
 
 
