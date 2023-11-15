@@ -34,4 +34,6 @@ channels_id = {
     "in_voice": 1071784772533223454,
 }
 
+new_user_name = ""
+
 invites = []
