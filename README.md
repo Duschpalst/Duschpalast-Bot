@@ -31,11 +31,12 @@
 - **Per message:** 1 XP
 - **Per 5 min in a voice channel:** 10 XP
   - Additional 5 XP for every extra hour
-- **Using the Command /daily: Get 15 to 50 XP once per day**
+- **Using the Command `/daily`: Get 15 to 50 XP once per day**
 - _Comming Soon: Games_
 
 ### How to Earn Duschcoins
-- **Using the Command /daily: Get 50 to 100 Duschcoins once per day**
+- **For every level up, you receive 100 Duschcoins**
+- **Using the Command `/daily`: Get 50 to 100 Duschcoins once per day**
 - _More Comming Soon_
 
 #### Join the [Duschpalast Server](https://discord.gg/ctPT25EPDP)
