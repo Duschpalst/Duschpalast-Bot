@@ -15,10 +15,10 @@
 
 ### Code Statistics
 
-- **Total Lines:** 2050
-- **Source Code Lines:** 1521 (74%)
+- **Total Lines:** 2023
+- **Source Code Lines:** 1502 (74%)
 - **Comment Lines:** 10 (1%)
-- **Blank Lines:** 519 (25%)
+- **Blank Lines:** 511 (25%)
 
 ## FAQ
 
@@ -38,4 +38,5 @@
 - **Using the Command /daily: Get 50 to 100 Duschcoins once per day**
 - _More Comming Soon_
 
+#### Join the [Duschpalast Server](https://discord.gg/ctPT25EPDP)
 #### For support or questions, contact me on [Discord](https://discord.com/users/697224731157332028).
