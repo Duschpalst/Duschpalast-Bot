@@ -41,7 +41,8 @@ async def update_stats_channels(client, time):
                     b_count += 1
 
                 if usr.voice:
-                    in_vc_count += 1
+                    if usr.voice.channel.id != 843754571377147934:
+                        in_vc_count += 1
 
             await all_channel.edit(name=f"Alle Mitglieder: {len(guild.members)}")
             await member_channel.edit(name=f"Mitglieder: {m_count}")

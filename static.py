@@ -6,6 +6,8 @@ db = sqlite3.connect(os.path.join(DIR, "assets/database.db"))
 SQL = db.cursor()
 
 
+standard_footer = "Fragen? Nutze den /faq command"
+
 self_roles_messages_id = [1174125525892071474, 1174125527058108487, 1174125528136040518]
 color_picker_message_id = 1174125529390133249
 lvl_roles_id = [1169061540209627206, 1169061375235076097, 1169061217302757456, 1169061144724504606, 1169061828165369866]

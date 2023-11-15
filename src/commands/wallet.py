@@ -1,7 +1,9 @@
+from datetime import datetime
 import discord
 from discord import Embed
 from discord.ext import commands
 
+import static
 from static import SQL
 
 
@@ -20,20 +22,27 @@ class Wallet(commands.Cog):
         SQL.execute(f'SELECT COUNT(*) FROM users WHERE coin > {coins};')
         rank = SQL.fetchone()[0] + 1
 
-        emb = Embed(color=0x8000ff,
-                    title=f"{user.name} Wallet")
+        emb = Embed(color=user.color,
+                    title=f"{user.name}'s Duschcoin Wallet")
 
         if not user.avatar:
            emb.set_thumbnail(url=str(user.default_avatar))
         else:
             emb.set_thumbnail(url=str(user.avatar.url))
 
-        emb.add_field(name="**• Coins<:duschcoin:1174139658712649729>**",
-                      value=f"**`{coins}`**")
+        emb.add_field(name="**• Duschcoins<:duschcoin:1174139658712649729>**",
+                      value=f"**Du besitzt  `{coins}` Duschcoins**")
 
         emb.add_field(name="**• Rank**",
-                      value=f"`{rank}`",
-                      inline=True)
+                      value=f"Du bist `{rank}` Rank",
+                      inline=False)
+
+        emb.add_field(name="**• Letzte Transaktion**",
+                      value=f"Coming Soon",
+                      inline=False)
+
+        emb.set_footer(text=static.standard_footer)
+        emb.timestamp = datetime.utcnow()
 
         await ctx.respond(embed=emb)
 

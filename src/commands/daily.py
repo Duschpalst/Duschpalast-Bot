@@ -5,6 +5,7 @@ import discord
 from discord import Embed
 from discord.ext import commands
 
+import static
 from static import SQL, db
 
 
@@ -23,7 +24,10 @@ class Daily(commands.Cog):
         now_date = datetime.now().date().strftime("%d.%m")
 
         if date == now_date:
-            await ctx.respond(embed=Embed(color=discord.Color.red(), title="Du hast Bereits deine Tägliche Belohnung abgeholt!"), ephemeral=True)
+            emb = Embed(color=discord.Color.red(),
+                        title="Du hast Bereits deine Tägliche Belohnung abgeholt!")
+            emb.set_footer(text=static.standard_footer)
+            await ctx.respond(embed=emb, ephemeral=True)
             return
 
         coins = randint(50, 100)
@@ -34,7 +38,38 @@ class Daily(commands.Cog):
         SQL.execute(f'UPDATE users SET daily = {now_date} WHERE user_id = {user.id};')
         db.commit()
 
-        await ctx.respond(embed=Embed(color=discord.Color.green(), title=f"Du erhälst `{xp}` XP und `{coins}` Duschcoins<:duschcoin:1174139658712649729>"), ephemeral=True)
+        SQL.execute(f'SELECT coin FROM users WHERE user_id = {user.id}')
+        res = SQL.fetchone()[0]
+
+        emb = discord.Embed(
+            title='Deine Täglichen Belohnungen',
+            description='Hier sind deine täglichen Belohnungen:',
+            color=0x3498db,
+        )
+
+        emb.add_field(name="XP", value=f"Du bekommst `{xp}` XP", inline=True)
+        emb.add_field(
+            name="Coins",
+            value=f"Du bekommst `{coins}` Duschcoins <:duschcoin:1174139658712649729>",
+            inline=False
+        )
+        emb.add_field(
+            name="Gesamte Duschcoins",
+            value=f"Deine Gesamten Duschcoins sind jetzt: `{res}` <:duschcoin:1174139658712649729>",
+            inline=False
+        )
+
+        emb.set_footer(text=static.standard_footer)
+
+        if not user.avatar:
+            emb.set_thumbnail(url=user.default_avatar)
+        else:
+            emb.set_thumbnail(url=user.avatar.url)
+
+        emb.timestamp = datetime.utcnow()
+
+
+        await ctx.respond(embed=emb, ephemeral=True)
 
 
 def setup(client):
