@@ -14,7 +14,7 @@ class On_Join(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_join(self, member: discord.Member):
+    async def on_member_join(self, member: discord.Member):
         await self.bot.change_presence(activity=discord.Game(name=f"👋 {member.name}"))
 
         await welcome_msg(member, self.bot)
@@ -49,9 +49,10 @@ async def welcome_msg(member, client):
     background.paste(profile, (160, 110))
 
     if member.discriminator == "0":
-        member = member.name
+        name = f"{str(member.name)[:16]}..." if len(str(member.name)) > 16 else str(member.name)
+    else:
+        name = f"{str(member)[:16]}..." if len(str(member)) > 16 else str(member)
 
-    name = f"{str(member)[:16]}..." if len(str(member)) > 16 else str(member)
     background.text((256, 310), f"Willkommen", font=f75, color="#FFFFFF", align="center")
     background.text((256, 400), name, font=f50, color="#FFFFFF", align="center")
 

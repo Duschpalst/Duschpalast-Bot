@@ -34,7 +34,7 @@ class Daily(commands.Cog):
         SQL.execute(f'UPDATE users SET daily = {now_date} WHERE user_id = {user.id};')
         db.commit()
 
-        await ctx.respond(embed=Embed(color=discord.Color.green(), title=f"Du erhälst `{xp}` XP und `{coins}` Duschcoins<:duschcoin:1095835086403940352>"), ephemeral=True)
+        await ctx.respond(embed=Embed(color=discord.Color.green(), title=f"Du erhälst `{xp}` XP und `{coins}` Duschcoins<:duschcoin:1174139658712649729>"), ephemeral=True)
 
 
 def setup(client):

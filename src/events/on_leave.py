@@ -11,7 +11,7 @@ class On_Leave(commands.Cog):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_leave(self, member: discord.Member):
+    async def on_member_leave(self, member: discord.Member):
         SQL.execute(f'Delete From users WHERE user_id = {member.id};')
         db.commit()
 

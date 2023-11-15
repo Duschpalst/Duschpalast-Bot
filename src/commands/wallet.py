@@ -28,7 +28,7 @@ class Wallet(commands.Cog):
         else:
             emb.set_thumbnail(url=str(user.avatar.url))
 
-        emb.add_field(name="**• Coins<:duschcoin:1095835086403940352>**",
+        emb.add_field(name="**• Coins<:duschcoin:1174139658712649729>**",
                       value=f"**`{coins}`**")
 
         emb.add_field(name="**• Rank**",

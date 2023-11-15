@@ -48,7 +48,7 @@ class Stats(commands.Cog):
         base.text((65, 440), "Level 📈", font=f30, color="#eeeeee")
         base.text((65, 490), str(lvl), font=f30, color="#a0a0a0")
 
-        base.text((65, 585), "Coins <:duschcoin:1095835086403940352>", font=f30, color="#eeeeee")
+        base.text((65, 585), "Coins <:duschcoin:1174139658712649729>", font=f30, color="#eeeeee")
         base.text((65, 635), str(coins), font=f30, color="#a0a0a0")
 
         base.text((65, 690), "Zeit in", font=f30, color="#eeeeee")
