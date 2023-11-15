@@ -79,7 +79,7 @@ async def invite_log(member, client):
     static.invites = invs_after
     for invite in invs_before:
         try:
-            if invite.uses < await find_invite_by_code(invs_after, invite.code).uses:
+            if invite.uses < (await find_invite_by_code(invs_after, invite.code)).uses:
                 if not invite.expires_at:
                     expire = None
                 else:
