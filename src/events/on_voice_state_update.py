@@ -42,7 +42,8 @@ class On_Voice_State_Update(commands.Cog):
         with open('assets/json/vc.json', 'w') as f:
             json.dump(data, f)
 
-        await lvl_roles(member)
+        if self.bot.user.id == static.bot_id:
+            await lvl_roles(member)
 
 
 def setup(client):

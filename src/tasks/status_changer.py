@@ -1,4 +1,5 @@
 import asyncio
+import json
 
 import discord.errors
 from discord.ext import commands
@@ -14,7 +15,8 @@ class Status_Changer(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        self.bot.loop.create_task(status_changer(self.bot, 30))
+        if self.bot.user.id == static.bot_id:
+            self.bot.loop.create_task(status_changer(self.bot, 30))
 
 
 def setup(client):
@@ -24,10 +26,20 @@ def setup(client):
 async def status_changer(client, time):
     while True:
         try:
-            await client.hange_presence(activity=discord.Game(name=f"👋 {static.new_user_name}"))
+            with open('assets/json/new_user.json', 'r') as f:
+                data = json.load(f)
+            await client.change_presence(activity=discord.Game(name=f"👋 {data['name']}"))
             await asyncio.sleep(time)
+
             await client.change_presence(activity=discord.Game(name="/faq für Fragen"))
             await asyncio.sleep(time)
+
+            guild: discord.Guild = (await client.fetch_channel(static.channels_id['all'])).guild
+            events = await guild.fetch_scheduled_events()
+            for event in events:
+                if event.status.value == 2:
+                    await client.change_presence(activity=discord.Activity(name="Event", type=5))
+                    await asyncio.sleep(time)
 
         except discord.errors.DiscordServerError:
             continue

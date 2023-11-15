@@ -1,3 +1,5 @@
+import json
+
 import discord
 from discord import Embed
 from discord.ext import commands
@@ -15,8 +17,12 @@ class On_Join(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
-        #await self.bot.change_presence(activity=discord.Game(name=f"👋 {member.name}"))
-        static.new_user_name = member.name
+        with open('assets/json/new_user.json', 'r') as f:
+            data = json.load(f)
+        data['name'] = member.name
+        with open('assets/json/new_user.json', 'w') as f:
+            json.dump(data, f)
+
 
         await welcome_msg(member, self.bot)
         await invite_log(member, self.bot)

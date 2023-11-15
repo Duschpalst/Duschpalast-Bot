@@ -32,9 +32,9 @@ for directory in cogs_directory:
     for path, subdirs, files in os.walk(directory):
         for name in files:
             if name.endswith(".py"):
-                p = path.replace("/", ".") # Linux
-                #p = path.replace("\\", ".") # Windows
+                #p = path.replace("/", ".") # Linux
+                p = path.replace("\\", ".") # Windows
                 client.load_extension(f"{p}.{name[:-3]}")
 
 
-client.run(secret.TOKEN)
+client.run(secret.Test_bot_TOKEN)
