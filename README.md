@@ -2,16 +2,16 @@
 
 | Command     | Permission required |
 |-------------|:-------------------:|
-| clear       |       &check;       |
-| daily       |       &cross;       |
-| faq         |       &cross;       |
-| leaderboard |       &cross;       |
-| level       |       &cross;       |
-| protokoll   |       &check;       |
-| roles       |       &check;       |
-| selfroles   |       &check;       |
-| stats       |       &cross;       |
-| tic-tac-toe |       &cross;       |
+| clear       |         ✔️          |
+| daily       |          ❌          |
+| faq         |          ❌          |
+| leaderboard |          ❌          |
+| level       |          ❌          |
+| protokoll   |         ✔️          |
+| roles       |         ✔️          |
+| selfroles   |         ✔️          |
+| stats       |          ❌          |
+| tic-tac-toe |          ❌          |
 
 ### Code Statistics
 
