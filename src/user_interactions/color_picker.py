@@ -38,7 +38,7 @@ async def color_picker(client):
             value=str(x[2])
         ) for x in res
         ],
-        min_values=0,
+        min_values=1,
         max_values=1
     )
 
