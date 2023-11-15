@@ -4,6 +4,7 @@ from static import SQL, db
 def create_sql_tables():
     SQL.execute('CREATE TABLE IF NOT EXISTS color_picker('
 	            'name TEXT NOT NULL UNIQUE,'
+                'emoji TEXT,'
 	            'role_id INTEGER NOT NULL UNIQUE);')
 
     SQL.execute('CREATE TABLE IF NOT EXISTS self_roles_gender('
