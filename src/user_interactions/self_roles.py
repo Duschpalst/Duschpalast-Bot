@@ -175,7 +175,6 @@ async def self_roles(client):
         view3_programming.add_item(programming[x])
 
     channel = await client.fetch_channel(static.channels_id['self_roles'])
-    # await channel.send(file=discord.File("img/self_roles.gif"))
     await (await channel.fetch_message(self_roles_messages_id[0])).edit("\n## __**Genereles:**__", view=view1_general)
     await (await channel.fetch_message(self_roles_messages_id[1])).edit("\n## __**Games:**__", view=view2_games)
     await (await channel.fetch_message(self_roles_messages_id[2])).edit("\n## __**Programmierung:**__",
