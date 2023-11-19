@@ -8,6 +8,19 @@ SQL = db.cursor()
 
 standard_footer = "Fragen? Nutze den /faq command"
 
+booster_xp_multiplier = 2
+
+message_xp = 1
+call_xp_5min = 10
+call_xp_60min = 5
+
+lvl_up_reward = 100
+
+daily_coin_reward_min = 50
+daily_coin_reward_max = 100
+daily_xp_reward_min = 15
+daily_xp_reward_max = 50
+
 self_roles_messages_id = [1174125525892071474, 1174125527058108487, 1174125528136040518]
 color_picker_message_id = 1174125529390133249
 lvl_roles_id = [1169061540209627206, 1169061375235076097, 1169061217302757456, 1169061144724504606, 1169061828165369866]

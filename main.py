@@ -2,8 +2,12 @@
 
 # Library Import
 import os
+import sys
+import platform
+import traceback
 
 import discord
+
 
 # Files Import
 import secret
@@ -32,8 +36,11 @@ for directory in cogs_directory:
     for path, subdirs, files in os.walk(directory):
         for name in files:
             if name.endswith(".py"):
-                #p = path.replace("/", ".") # Linux
-                p = path.replace("\\", ".") # Windows
+                if platform.system() == 'Linux':
+                    p = path.replace("/", ".") # Linux
+                else:
+                    p = path.replace("\\", ".") # Windows
+
                 client.load_extension(f"{p}.{name[:-3]}")
 
 

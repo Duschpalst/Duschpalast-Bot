@@ -15,10 +15,10 @@
 
 ### Code Statistics
 
-- **Total Lines:** 2176
-- **Source Code Lines:** 1621 (74%)
-- **Comment Lines:** 10 (1%)
-- **Blank Lines:** 545 (25%)
+- **Total Lines:** 2374
+- **Source Code Lines:** 1734 (74%)
+- **Comment Lines:** 35 (1%)
+- **Blank Lines:** 605 (25%)
 
 ## FAQ
 

@@ -1,6 +1,8 @@
 import discord
 
+import static
 from static import SQL, db
+from utils.user.add_last_transaction import add_last_transaction
 from utils.user.get_user_xp_lvl import get_xp_lvl
 
 
@@ -11,5 +13,6 @@ async def lvl_up_rewards(user: discord.User, xp_add):
     if lvl_before == lvl_after:
         return
 
-    SQL.execute(f'UPDATE users SET coin = coin + 100 WHERE user_id = {user.id};')
+    await add_last_transaction(user, 'add', 'Level up Belohnung', static.lvl_up_reward)
+    SQL.execute(f'UPDATE users SET coin = coin + {static.lvl_up_reward} WHERE user_id = {user.id};')
     db.commit()

@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 
 import static
-from static import SQL, db
+from static import *
 from utils.user.first_db_write_check import first_write_check
 from utils.user.lvl_roles import lvl_roles
 from utils.user.lvl_up_rewards import lvl_up_rewards
@@ -24,13 +24,13 @@ class On_Message(commands.Cog):
 
         role = discord.utils.get(message.guild.roles, id=static.roles_id['booster'])
         if role in user.roles:
-            xp = 2
+            multiplier = booster_xp_multiplier
         else:
-            xp = 1
+            multiplier = 1
 
-        await lvl_up_rewards(user, xp)
+        await lvl_up_rewards(user, (message_xp * multiplier))
 
-        SQL.execute(f'UPDATE users SET xp = xp + {xp} WHERE user_id = {user.id}')
+        SQL.execute(f'UPDATE users SET xp = xp + {message_xp * multiplier} WHERE user_id = {user.id}')
         SQL.execute(f'UPDATE users SET msg_count = msg_count + 1 WHERE user_id = {user.id}')
         db.commit()
 

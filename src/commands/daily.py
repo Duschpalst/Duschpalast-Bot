@@ -6,7 +6,7 @@ from discord import Embed
 from discord.ext import commands
 
 import static
-from static import SQL, db
+from static import *
 from utils.user.add_last_transaction import add_last_transaction
 
 
@@ -31,8 +31,8 @@ class Daily(commands.Cog):
             await ctx.respond(embed=emb, ephemeral=True)
             return
 
-        coins = randint(50, 100)
-        xp = randint(15, 50)
+        coins = randint(daily_coin_reward_min, daily_coin_reward_max)
+        xp = randint(daily_xp_reward_min, daily_xp_reward_max)
 
         SQL.execute(f'UPDATE users SET coin = coin + {coins} WHERE user_id = {user.id};')
         SQL.execute(f'UPDATE users SET xp = xp + {xp} WHERE user_id = {user.id};')
