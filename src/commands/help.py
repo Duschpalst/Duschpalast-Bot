@@ -6,6 +6,8 @@ from discord import Embed
 from discord.ext import commands
 from discord.ui import View, Button, Select
 
+from static import basic_cmds, lvl_cmds, coins_cmds
+
 
 class Help(commands.Cog):
 
@@ -19,17 +21,31 @@ class Help(commands.Cog):
     async def cmd(self, ctx: discord.ApplicationContext):
         self.guild: discord.Guild = ctx.guild
 
-        await ctx.respond(embed=await self.start_page(), view=await self.view(), ephemeral=True)
+        if ctx.author.guild_permissions.kick_members:
+            admin = True
+        else:
+            admin = False
 
-    async def view(self):
-        v = View(timeout=None)
+        await ctx.respond(embed=await self.start_page(), view=await self.view(admin), ephemeral=True)
+
+    async def view(self, admin=False):
+        v = View(timeout=900)
 
         categories_list = [
             ["Startseite", "Kehre zur Sartseite zurück", "<:d_compass:1175897308911640686>"],
             ["Commands", "Befehle die jeder Nutzer ausführen kann.", "<:d_slashcommand:1176228551050154045>"],
             ["Wie das Level System funktioniert", "Zeige dir alles zum Level System an", "<:d_metrics:1176229778177658961>"],
-            ["Wie das Coins System funktioniert", "Zeige dir alles zum Coins System an", "<:d_creditcard:1176229782833348709>"],
+            ["Wie das Duschcoins System funktioniert", "Zeige dir alles zum Duschcoins System an", "<:d_creditcard:1176229782833348709>"],
         ]
+
+        admin_categories_list = [
+            ["Moderation Commands", "Noch nichts eingefügt", "<:d_settings:1175897310471913543>"],
+        ]
+
+        if admin:
+            for i in admin_categories_list:
+                categories_list.append(i)
+
 
         categories = Select(
             placeholder=f"Kategorien",
@@ -38,12 +54,32 @@ class Help(commands.Cog):
                 description=x[1],
                 emoji=x[2],
                 value=str(id)
-            ) for id, x in enumerate(categories_list, 1)
+            ) for id, x in enumerate(categories_list, 0)
             ],
             min_values=1,
             max_values=1
         )
 
+        async def callback(interaction: discord.Interaction):
+            user: discord.Member = interaction.user
+
+            if categories.values[0] == "0":
+                emb = await self.start_page()
+            elif categories.values[0] == "1":
+                emb = await self.cmd_page()
+            elif categories.values[0] == "2":
+                emb = await self.lvl_page()
+            elif categories.values[0] == "3":
+                emb = await self.coins_page()
+
+            else:
+                emb = await self.start_page()
+
+            await interaction.response.edit_message(embed=emb)
+
+
+
+        categories.callback = callback
         v.add_item(categories)
 
 
@@ -99,7 +135,7 @@ class Help(commands.Cog):
         emb = Embed(
             color=0x36393F,  # 0x2f3136,
             title="",
-            description='><:d_category:1175897311784742942> × Hier findest du **alle Befehle** die du nutzten kannst.',
+            description='> <:d_category:1175897311784742942> × Hier findest du **alle Befehle** die du nutzten kannst. (Optional) [Verpflichtend]',
         )
 
         emb.timestamp = datetime.utcnow()
@@ -107,9 +143,91 @@ class Help(commands.Cog):
         emb.set_author(name='Duschpalast Bot | Help', icon_url=self.bot.user.avatar.url)
         emb.set_footer(text='Duschpalast Bot | Help')
 
-        #emb.add_field(
-        #    name="> Emoji | "
-        #)
+        for cmd in basic_cmds:
+            emb.add_field(
+                name="",
+                value=cmd[0],
+                inline=False
+            )
+
+        return emb
+
+    async def lvl_page(self):
+        emb = Embed(
+            color=0x36393F,  # 0x2f3136,
+            title="",
+            description='> ️<:d_info:1175897319389016125> × Hier findest du **alle relevanten Informationen** zu den **Befehlen** und **weiteren Funktionen** dieses Discord-Bots.',
+        )
+
+        emb.timestamp = datetime.utcnow()
+        emb.set_thumbnail(url=self.bot.user.avatar.url)
+        emb.set_author(name='Duschpalast Bot | Help', icon_url=self.bot.user.avatar.url)
+        emb.set_footer(text='Duschpalast Bot | Help')
+
+        emb.add_field(
+            name="EMOJI | Level-System:",
+            value=f"↣ Basis-XP für ein Level: `250 XP`\n"
+                  f"↣ XP-Inkrement pro Level: `10 XP`",
+            inline=True
+        )
+
+        emb.add_field(
+            name="EMOJI | XP verdienen:",
+            value=f"↣ Booster: XP * 2\n"
+                  f"↣ Pro Nachricht: `1 XP`\n"
+                  f"↣ Pro 5 Min im Sprachkanal: `10 XP`\n"
+                  f"↣ `+5 XP` pro Stunde\n"
+                  f"Durch </daily:1175468452123783270>: Täglich `15-50` XP",
+            inline=True
+        )
+
+        emb.add_field(
+            name="EMOJI | Level Commands",
+            value="",
+            inline=False
+        )
+
+        for cmd in lvl_cmds:
+            emb.add_field(
+                name="",
+                value=cmd[0],
+                inline=False
+            )
+
+        return emb
+
+
+    async def coins_page(self):
+        emb = Embed(
+            color=0x36393F,  # 0x2f3136,
+            title="",
+            description='> ️<:d_info:1175897319389016125> × Hier findest du **alle relevanten Informationen** zu den **Befehlen** und **weiteren Funktionen** dieses Discord-Bots.',
+        )
+
+        emb.timestamp = datetime.utcnow()
+        emb.set_thumbnail(url=self.bot.user.avatar.url)
+        emb.set_author(name='Duschpalast Bot | Help', icon_url=self.bot.user.avatar.url)
+        emb.set_footer(text='Duschpalast Bot | Help')
+
+        emb.add_field(
+            name="EMOJI | Duschcoins verdienen:",
+            value=f"↣ Pro Level-Up: `100` Duschcoins\n"
+                  f"↣ Durch </daily:1175468452123783270>: Täglich `50-100` Duschcoins",
+            inline=True
+        )
+
+        emb.add_field(
+            name="EMOJI | Duschcoins Commands",
+            value="",
+            inline=False
+        )
+
+        for cmd in coins_cmds:
+            emb.add_field(
+                name="",
+                value=cmd[0],
+                inline=False
+            )
 
         return emb
 

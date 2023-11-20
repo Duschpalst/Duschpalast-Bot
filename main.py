@@ -2,9 +2,7 @@
 
 # Library Import
 import os
-import sys
 import platform
-import traceback
 
 import discord
 
@@ -27,6 +25,9 @@ async def on_ready():
     # Code der nur aufm Main Bot funktioniert und nicht auf dem Test Bot
     if client.user.id == static.bot_id:
         await update_invites(client)
+
+    #for cmd in client.commands:
+    #    print(f"</{cmd.name}:{cmd.id}>")
 
 
 cogs_directory = ['src']

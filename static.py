@@ -49,4 +49,55 @@ channels_id = {
     "in_voice": 1071784772533223454,
 }
 
+basic_cmds = [
+    ["</faq:1175468452123783270>\n"
+    "Noch nichts eingefügt"],
+
+    ["</help:1175468452123783270>\n"
+    "Noch nichts eingefügt"],
+
+    ["</stats:1175468452652253184>\n"
+    "Noch nichts eingefügt"],
+
+    ["</tic-tac-toe:1175468452652253184> [User]\n"
+    "Noch nichts eingefügt"],
+
+]
+
+lvl_cmds = [
+    ["</level:1175468452652253184> (User)\n"
+    "Noch nichts eingefügt"],
+
+    ["</leaderboard:1175468452123783270>\n"
+    "Die Bestenliste des aktuellen Servers."],
+
+    ["</daily:1175468452123783270>\n"
+    "Noch nichts eingefügt"],
+]
+
+coins_cmds = [
+    ["</wallet:1175468452652253184>\n"
+    "Noch nichts eingefügt"],
+
+    ["</daily:1175468452123783270>\n"
+    "Noch nichts eingefügt"],
+]
+
+admin_cmds = [
+    ["</clear:1175468452652253184>\n"
+    "Noch nichts eingefügt"],
+
+    ["</remove-level:1175468452652253184>\n"
+    "Noch nichts eingefügt"],
+
+    ["</protokoll:1175468452652253184>\n"
+    "Noch nichts eingefügt"],
+
+    ["</roles:1175468452652253184>\n"
+    "Noch nichts eingefügt"],
+
+    ["</selfroles:1175468452652253184>\n"
+    "Noch nichts eingefügt"],
+]
+
 invites = []
