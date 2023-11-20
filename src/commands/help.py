@@ -12,21 +12,33 @@ class Help(commands.Cog):
     def __init__(self, bot):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot: discord.Bot = bot
+        self.guild = None
+
+
+    @commands.slash_command(name="help", description="Brauchst du hilfe?")
+    async def cmd(self, ctx: discord.ApplicationContext):
+        self.guild: discord.Guild = ctx.guild
+
+        await ctx.respond(embed=await self.start_page(), view=await self.view(), ephemeral=True)
 
     async def view(self):
         v = View(timeout=None)
 
         categories_list = [
-
+            ["Startseite", "Kehre zur Sartseite zurück", "<:d_compass:1175897308911640686>"],
+            ["Commands", "Befehle die jeder Nutzer ausführen kann.", "<:d_slashcommand:1176228551050154045>"],
+            ["Wie das Level System funktioniert", "Zeige dir alles zum Level System an", "<:d_metrics:1176229778177658961>"],
+            ["Wie das Coins System funktioniert", "Zeige dir alles zum Coins System an", "<:d_creditcard:1176229782833348709>"],
         ]
 
         categories = Select(
             placeholder=f"Kategorien",
             options=[discord.SelectOption(
                 label=x[0],
-                emoji=x[1],
-                value=str(x[2])
-            ) for x in categories_list
+                description=x[1],
+                emoji=x[2],
+                value=str(id)
+            ) for id, x in enumerate(categories_list, 1)
             ],
             min_values=1,
             max_values=1
@@ -36,17 +48,14 @@ class Help(commands.Cog):
 
 
         button1 = Button(label="Ideen / Bugs", custom_id="ideas_bug", style=discord.ButtonStyle.blurple)
-        button2 = Button(label="Weitere Frage", custom_id="question", style=discord.ButtonStyle.green)
+        button2 = Button(label="Frage nicht gefunden?", custom_id="question", style=discord.ButtonStyle.green)
 
         v.add_item(button1)
         v.add_item(button2)
 
         return v
 
-    @commands.slash_command(name="help", description="Brauchst du hilfe?")
-    async def cmd(self, ctx: discord.ApplicationContext):
-        guild: discord.Guild = ctx.guild
-
+    async def start_page(self):
         emb = Embed(
             color=0x36393F, #0x2f3136,
             title="",
@@ -61,8 +70,8 @@ class Help(commands.Cog):
 
         emb.add_field(
             name="<:d_staff:1175897436129079306> | Generelle Server Infos",
-            value=f"↣ Mitglier: `{len(guild.members)}`\n"
-                  f"↣ Server Owner: \n`{guild.owner}`\n",
+            value=f"↣ Mitglier: `{len(self.guild.members)}`\n"
+                  f"↣ Server Owner: \n`{self.guild.owner}`\n",
             inline=True
         )
 
@@ -83,7 +92,26 @@ class Help(commands.Cog):
             name="> Emoji | "
         )"""
 
-        await ctx.respond(embed=emb, view=await self.view(), ephemeral=True)
+        return emb
+
+
+    async def cmd_page(self):
+        emb = Embed(
+            color=0x36393F,  # 0x2f3136,
+            title="",
+            description='><:d_category:1175897311784742942> × Hier findest du **alle Befehle** die du nutzten kannst.',
+        )
+
+        emb.timestamp = datetime.utcnow()
+        emb.set_thumbnail(url=self.bot.user.avatar.url)
+        emb.set_author(name='Duschpalast Bot | Help', icon_url=self.bot.user.avatar.url)
+        emb.set_footer(text='Duschpalast Bot | Help')
+
+        #emb.add_field(
+        #    name="> Emoji | "
+        #)
+
+        return emb
 
 
 def setup(client):
