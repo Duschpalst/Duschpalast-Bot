@@ -2,7 +2,7 @@ from datetime import date, timedelta, datetime
 from ast import literal_eval
 
 import discord
-from discord import Embed
+from discord import Embed, default_permissions
 from discord.ext import commands
 from discord.ui import View, Button, InputText, Select
 
@@ -15,8 +15,8 @@ class Protocol(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
-    @commands.has_permissions(kick_members=True)
     @commands.slash_command(name="protokoll", description="Benutzer Protokoll")
+    @default_permissions(kick_members=True)
     async def cmd(self, ctx: discord.ApplicationContext):
         msg = await start_page(ctx.guild)
         await ctx.respond(embed=msg[0], view=msg[1], ephemeral=True)

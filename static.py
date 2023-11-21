@@ -50,53 +50,53 @@ channels_id = {
 }
 
 basic_cmds = [
-    ["</faq:1175468452123783270>\n"
+    ["faq",
     "Noch nichts eingefügt"],
 
-    ["</help:1175468452123783270>\n"
+    ["help",
     "Noch nichts eingefügt"],
 
-    ["</stats:1175468452652253184>\n"
+    ["stats",
     "Noch nichts eingefügt"],
 
-    ["</tic-tac-toe:1175468452652253184> [User]\n"
+    ["tic-tac-toe [User]",
     "Noch nichts eingefügt"],
 
 ]
 
 lvl_cmds = [
-    ["</level:1175468452652253184> (User)\n"
+    ["level (User)",
     "Noch nichts eingefügt"],
 
-    ["</leaderboard:1175468452123783270>\n"
+    ["leaderboard",
     "Die Bestenliste des aktuellen Servers."],
 
-    ["</daily:1175468452123783270>\n"
+    ["daily",
     "Noch nichts eingefügt"],
 ]
 
 coins_cmds = [
-    ["</wallet:1175468452652253184>\n"
+    ["wallet",
     "Noch nichts eingefügt"],
 
-    ["</daily:1175468452123783270>\n"
+    ["daily",
     "Noch nichts eingefügt"],
 ]
 
 admin_cmds = [
-    ["</clear:1175468452652253184>\n"
+    ["clear",
     "Noch nichts eingefügt"],
 
-    ["</remove-level:1175468452652253184>\n"
+    ["remove-level",
     "Noch nichts eingefügt"],
 
-    ["</protokoll:1175468452652253184>\n"
+    ["protokoll",
     "Noch nichts eingefügt"],
 
-    ["</roles:1175468452652253184>\n"
+    ["roles",
     "Noch nichts eingefügt"],
 
-    ["</selfroles:1175468452652253184>\n"
+    ["selfroles",
     "Noch nichts eingefügt"],
 ]
 

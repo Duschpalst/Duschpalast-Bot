@@ -26,8 +26,6 @@ async def on_ready():
     if client.user.id == static.bot_id:
         await update_invites(client)
 
-    #for cmd in client.commands:
-    #    print(f"</{cmd.name}:{cmd.id}>")
 
 
 cogs_directory = ['src']

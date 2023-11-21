@@ -1,5 +1,5 @@
 import discord
-from discord import Option, Embed
+from discord import Option, Embed, default_permissions
 from discord.ext import commands
 
 
@@ -9,8 +9,8 @@ class Clear(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
-    @commands.has_permissions(kick_members=True)
     @commands.slash_command(name="clear", description="Lösche Nachrichten")
+    @default_permissions(kick_members=True)
     async def cmd(self, ctx: discord.ApplicationContext, ammount: Option(int, "Anzahl", required=False)):
         ammount = ammount or 1000
         await ctx.respond(embed=Embed(color=discord.Color.green(), title="Done"), ephemeral=True)

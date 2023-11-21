@@ -61,8 +61,6 @@ class Help(commands.Cog):
         )
 
         async def callback(interaction: discord.Interaction):
-            user: discord.Member = interaction.user
-
             if categories.values[0] == "0":
                 emb = await self.start_page()
             elif categories.values[0] == "1":
@@ -144,9 +142,15 @@ class Help(commands.Cog):
         emb.set_footer(text='Duschpalast Bot | Help')
 
         for cmd in basic_cmds:
+            cmd_name, cmd_options = cmd[0].split()[0], cmd[0].split()[1:]
+            cmd_id = 1
+            for command in self.bot.commands:
+                if command.name == cmd_name:
+                    cmd_id = command.id
+
             emb.add_field(
                 name="",
-                value=cmd[0],
+                value=f"</{cmd_name}:{cmd_id}> {cmd_options}\n{cmd[1]}",
                 inline=False
             )
 
@@ -188,9 +192,15 @@ class Help(commands.Cog):
         )
 
         for cmd in lvl_cmds:
+            cmd_name, cmd_options = cmd[0].split()[0], cmd[0].split()[1:]
+            cmd_id = 1
+            for command in self.bot.commands:
+                if command.name == cmd_name:
+                    cmd_id = command.id
+
             emb.add_field(
                 name="",
-                value=cmd[0],
+                value=f"</{cmd_name}:{cmd_id}> {cmd_options}\n{cmd[1]}",
                 inline=False
             )
 
@@ -223,9 +233,15 @@ class Help(commands.Cog):
         )
 
         for cmd in coins_cmds:
+            cmd_name, cmd_options = cmd[0].split()[0], cmd[0].split()[1:]
+            cmd_id = 1
+            for command in self.bot.commands:
+                if command.name == cmd_name:
+                    cmd_id = command.id
+
             emb.add_field(
                 name="",
-                value=cmd[0],
+                value=f"</{cmd_name}:{cmd_id}> {cmd_options}\n{cmd[1]}",
                 inline=False
             )
 

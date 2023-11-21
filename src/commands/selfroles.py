@@ -2,7 +2,7 @@ from io import BytesIO
 import discord
 import requests
 from PIL import Image
-from discord import Embed
+from discord import Embed, default_permissions
 from discord.ext import commands
 from discord.ui import View, Button, InputText
 
@@ -18,8 +18,8 @@ class SelfRoles(commands.Cog):
         global client
         client = bot
 
-    @commands.has_permissions(kick_members=True)
     @commands.slash_command(name="selfroles", description="Bearbeite die Self Roles")
+    @default_permissions(kick_members=True)
     async def cmd(self, ctx: discord.ApplicationContext):
         view = View(timeout=30)
         button1 = Button(label="+ Gaming Option", custom_id="add_gaming_option", style=discord.ButtonStyle.green)
