@@ -66,29 +66,29 @@ basic_cmds = [
 
 lvl_cmds = [
     ["level (User)",
-    "Noch nichts eingefügt"],
+    "Zeige dir deine Level oder die Level von einem User an."],
 
     ["leaderboard",
-    "Die Bestenliste des aktuellen Servers."],
+    "Zeige dir die Bestenliste an."],
 
     ["daily",
-    "Noch nichts eingefügt"],
+    "Hol dir deine Tägliche Belohnungen ab."],
 ]
 
 coins_cmds = [
     ["wallet",
-    "Noch nichts eingefügt"],
+    "Zeige dir deine Duschcoins an."],
 
     ["daily",
-    "Noch nichts eingefügt"],
+    "Hol dir deine Tägliche Belohnungen ab."],
 ]
 
 admin_cmds = [
-    ["clear",
-    "Noch nichts eingefügt"],
+    ["clear (Anzahl)",
+    "Lösche Nachrichten"],
 
-    ["remove-level",
-    "Noch nichts eingefügt"],
+    ["remove-level [Uer] [Level]",
+    "Entferne von einem User Level"],
 
     ["protokoll",
     "Noch nichts eingefügt"],

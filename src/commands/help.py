@@ -6,7 +6,7 @@ from discord import Embed
 from discord.ext import commands
 from discord.ui import View, Button, Select
 
-from static import basic_cmds, lvl_cmds, coins_cmds
+from static import basic_cmds, lvl_cmds, coins_cmds, admin_cmds
 
 
 class Help(commands.Cog):
@@ -69,6 +69,8 @@ class Help(commands.Cog):
                 emb = await self.lvl_page()
             elif categories.values[0] == "3":
                 emb = await self.coins_page()
+            elif categories.values[0] == "4":
+                emb = await self.moderation_page()
 
             else:
                 emb = await self.start_page()
@@ -142,7 +144,7 @@ class Help(commands.Cog):
         emb.set_footer(text='Duschpalast Bot | Help')
 
         for cmd in basic_cmds:
-            cmd_name, cmd_options = cmd[0].split()[0], cmd[0].split()[1:]
+            cmd_name, cmd_options = cmd[0].split(" ", 1)
             cmd_id = 1
             for command in self.bot.commands:
                 if command.name == cmd_name:
@@ -160,7 +162,7 @@ class Help(commands.Cog):
         emb = Embed(
             color=0x36393F,  # 0x2f3136,
             title="",
-            description='> ️<:d_info:1175897319389016125> × Hier findest du **alle relevanten Informationen** zu den **Befehlen** und **weiteren Funktionen** dieses Discord-Bots.',
+            description='> <:d_metrics:1176229778177658961> × Hier findest du alle wichtige **Informationen** und **Befehle** zum Level System. (Optional) [Verpflichtend]',
         )
 
         emb.timestamp = datetime.utcnow()
@@ -192,7 +194,7 @@ class Help(commands.Cog):
         )
 
         for cmd in lvl_cmds:
-            cmd_name, cmd_options = cmd[0].split()[0], cmd[0].split()[1:]
+            cmd_name, cmd_options = cmd[0].split(" ", 1)
             cmd_id = 1
             for command in self.bot.commands:
                 if command.name == cmd_name:
@@ -211,7 +213,7 @@ class Help(commands.Cog):
         emb = Embed(
             color=0x36393F,  # 0x2f3136,
             title="",
-            description='> ️<:d_info:1175897319389016125> × Hier findest du **alle relevanten Informationen** zu den **Befehlen** und **weiteren Funktionen** dieses Discord-Bots.',
+            description='> <:d_creditcard:1176229782833348709> × Hier findest du alle wichtige **Informationen** und **Befehle** zum Duschcoin System. (Optional) [Verpflichtend]',
         )
 
         emb.timestamp = datetime.utcnow()
@@ -233,7 +235,35 @@ class Help(commands.Cog):
         )
 
         for cmd in coins_cmds:
-            cmd_name, cmd_options = cmd[0].split()[0], cmd[0].split()[1:]
+            cmd_name, cmd_options = cmd[0].split(" ", 1)
+            cmd_id = 1
+            for command in self.bot.commands:
+                if command.name == cmd_name:
+                    cmd_id = command.id
+
+            emb.add_field(
+                name="",
+                value=f"</{cmd_name}:{cmd_id}> {cmd_options}\n{cmd[1]}",
+                inline=False
+            )
+
+        return emb
+
+
+    async def moderation_page(self):
+        emb = Embed(
+            color=0x36393F,  # 0x2f3136,
+            title="",
+            description='> <:d_settings:1175897310471913543> × Hier findest du alle wichtigen **Befehle** für die Moderation. (Optional) [Verpflichtend]',
+        )
+
+        emb.timestamp = datetime.utcnow()
+        emb.set_thumbnail(url=self.bot.user.avatar.url)
+        emb.set_author(name='Duschpalast Bot | Help', icon_url=self.bot.user.avatar.url)
+        emb.set_footer(text='Duschpalast Bot | Help')
+
+        for cmd in admin_cmds:
+            cmd_name, cmd_options = cmd[0].split(" ", 1)
             cmd_id = 1
             for command in self.bot.commands:
                 if command.name == cmd_name:
