@@ -33,6 +33,7 @@ class Help(commands.Cog):
             ["Allgemein Commands", "Allgemeine Befehle die jeder Nutzer nutzen kann.", "<:d_slashcommand:1176228551050154045>"],
             ["Wie das Level System funktioniert", "Zeige dir alles zum Level System an.", "<:d_metrics:1176229778177658961>"],
             ["Wie das Duschcoins System funktioniert", "Zeige dir alles zum Duschcoins System an.", "<:d_creditcard:1176229782833348709>"],
+            ["Games (Cooming Soon)", "Zeige dir alles zu Games an.", "<:d_bughunter:1175897321532305529>"]
         ]
 
         admin_categories_list = [
@@ -62,7 +63,8 @@ class Help(commands.Cog):
                 "1": self.cmd_page,
                 "2": self.lvl_page,
                 "3": self.coins_page,
-                "4": self.moderation_page,
+                "4": self.start_page,
+                "5": self.moderation_page,
             }
             emb = await categories_mapping.get(categories.values[0], self.start_page)()
             await interaction.response.edit_message(embed=emb)
