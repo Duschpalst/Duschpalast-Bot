@@ -15,7 +15,7 @@ class Stats(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
-    @commands.slash_command(name="stats", description="Zeige dir deine Stats vom Server an")
+    @commands.slash_command(name="stats", description="📊 | Zeige dir deine Stats vom Server an")
     async def cmd(self, ctx: discord.ApplicationContext):
         await ctx.response.defer()
         user: discord.User = ctx.user

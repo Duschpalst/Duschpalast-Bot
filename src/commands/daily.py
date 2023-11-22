@@ -16,7 +16,7 @@ class Daily(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
-    @commands.slash_command(name="daily", description="Hole dir deine Tägliche belohnung ab")
+    @commands.slash_command(name="daily", description="📆 | Hole dir deine Tägliche belohnung ab")
     async def cmd(self, ctx: discord.ApplicationContext):
         user = ctx.user
         SQL.execute(f'SELECT daily FROM users WHERE user_id = {user.id}')

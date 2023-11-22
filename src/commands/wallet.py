@@ -14,7 +14,7 @@ class Wallet(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
-    @commands.slash_command(name="wallet", description="Zeige dir deine Duschcoins an")
+    @commands.slash_command(name="wallet", description="🏧 | Zeige dir deine Duschcoins an")
     async def cmd(self, ctx: discord.ApplicationContext):
         user: discord.User = ctx.user
         SQL.execute(f'SELECT coin FROM users WHERE user_id = {user.id}')

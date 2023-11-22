@@ -18,7 +18,7 @@ class SelfRoles(commands.Cog):
         global client
         client = bot
 
-    @commands.slash_command(name="selfroles", description="Bearbeite die Self Roles")
+    @commands.slash_command(name="selfroles", description="🛠️ | Bearbeite die Self Roles")
     @default_permissions(kick_members=True)
     async def cmd(self, ctx: discord.ApplicationContext):
         view = View(timeout=30)

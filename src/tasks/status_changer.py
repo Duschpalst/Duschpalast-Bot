@@ -31,7 +31,7 @@ async def status_changer(client, time):
             await client.change_presence(activity=discord.Game(name=f"👋 {data['name']}"))
             await asyncio.sleep(time)
 
-            await client.change_presence(activity=discord.Game(name="/faq für Fragen"))
+            await client.change_presence(activity=discord.Game(name="/help für Fragen"))
             await asyncio.sleep(time)
 
             guild: discord.Guild = (await client.fetch_channel(static.channels_id['all'])).guild

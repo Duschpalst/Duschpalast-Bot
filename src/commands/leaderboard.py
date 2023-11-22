@@ -13,7 +13,7 @@ class Leaderbord(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
-    @commands.slash_command(name="leaderboard", description="Zeige dir top 10 von den Level an")
+    @commands.slash_command(name="leaderboard", description="📋 | Zeige dir die top 10 von den Level an")
     async def cmd(self, ctx: discord.ApplicationContext):
         SQL.execute('SELECT user_id, xp FROM users ORDER BY xp DESC')
         res = SQL.fetchmany(10)

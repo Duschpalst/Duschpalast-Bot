@@ -16,7 +16,7 @@ class Level(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
-    @commands.slash_command(name="level", description="Zeige dir dein Aktuelles Level an")
+    @commands.slash_command(name="level", description="📈 | Zeige dir dein Aktuelles Level an")
     async def cmd(self, ctx: discord.ApplicationContext, benutzter: Option(discord.Member, "Benutzer", required=False)):
         user = benutzter or ctx.user
         if user.bot:

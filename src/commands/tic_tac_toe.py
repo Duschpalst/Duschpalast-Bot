@@ -12,7 +12,7 @@ class TicTacToe(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
-    @commands.slash_command(name="tic-tac-toe", description="Tic Tac Toe")
+    @commands.slash_command(name="tic-tac-toe", description="🎲 | Tic Tac Toe")
     async def cmd(self, ctx: discord.ApplicationContext, benutzter: Option(discord.Member, "Benutzer", required=True)):
         user2 = benutzter
         user1 = ctx.user

@@ -9,7 +9,7 @@ class Clear(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
-    @commands.slash_command(name="clear", description="Lösche Nachrichten")
+    @commands.slash_command(name="clear", description="🗑️ | Lösche Nachrichten")
     @default_permissions(kick_members=True)
     async def cmd(self, ctx: discord.ApplicationContext, ammount: Option(int, "Anzahl", required=False)):
         ammount = ammount or 1000
