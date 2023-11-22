@@ -165,14 +165,14 @@ class Help(commands.Cog):
         emb.set_footer(text='Duschpalast Bot | Help')
 
         emb.add_field(
-            name="EMOJI | Level-System:",
+            name="<:d_metrics:1176229778177658961> | Level-System:",
             value=f"↣ Basis-XP für ein Level: `250 XP`\n"
                   f"↣ XP-Inkrement pro Level: `10 XP`",
             inline=True
         )
 
         emb.add_field(
-            name="EMOJI | XP verdienen:",
+            name="<:d_creditcard:1176229782833348709> | XP verdienen:",
             value=f"↣ Booster: XP * 2\n"
                   f"↣ Pro Nachricht: `1 XP`\n"
                   f"↣ Pro 5 Min im Sprachkanal: `10 XP`\n"
@@ -182,7 +182,7 @@ class Help(commands.Cog):
         )
 
         emb.add_field(
-            name="EMOJI | Befehle für das Level-System",
+            name="<:d_slashcommand:1176228551050154045> | Befehle für das Level-System",
             value="",
             inline=False
         )
@@ -213,14 +213,14 @@ class Help(commands.Cog):
         emb.set_footer(text='Duschpalast Bot | Help')
 
         emb.add_field(
-            name="EMOJI | Duschcoins verdienen:",
+            name="<:d_creditcard:1176229782833348709> | Duschcoins verdienen:",
             value=f"↣ Pro Level-Up: `100` Duschcoins\n"
                   f"↣ Durch </daily:1175468452123783270>: Täglich `50-100` Duschcoins",
             inline=True
         )
 
         emb.add_field(
-            name="EMOJI | Befehle für Duschcoins",
+            name="<:d_slashcommand:1176228551050154045> | Befehle für Duschcoins",
             value="",
             inline=False
         )

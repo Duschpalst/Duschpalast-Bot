@@ -43,4 +43,4 @@ for directory in cogs_directory:
                 client.load_extension(f"{p}.{name[:-3]}")
 
 
-client.run(secret.Test_bot_TOKEN)
+client.run(secret.TOKEN)
