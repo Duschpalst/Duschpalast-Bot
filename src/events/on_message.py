@@ -34,7 +34,8 @@ class On_Message(commands.Cog):
         SQL.execute(f'UPDATE users SET msg_count = msg_count + 1 WHERE user_id = {user.id}')
         db.commit()
 
-        if self.bot.user.id == static.bot_id:
+        guild: discord.Guild = self.bot.get_guild(static.duschpalast_guild_id)
+        if self.bot.user.id == static.bot_id and message.guild == guild:
             await lvl_roles(user)
 
 

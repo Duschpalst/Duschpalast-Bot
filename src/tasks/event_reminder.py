@@ -29,7 +29,7 @@ def setup(client):
 async def check_events(client: discord.Client, time):
     while True:
         try:
-            guild: discord.Guild = (await client.fetch_channel(static.channels_id['welcome'])).guild
+            guild: discord.Guild = client.get_guild(static.duschpalast_guild_id)
             events = await guild.fetch_scheduled_events()
 
             

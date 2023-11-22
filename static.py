@@ -41,6 +41,9 @@ lvl_roles_id = [1169061540209627206, 1169061375235076097, 1169061217302757456, 1
 # Bot's user ID
 bot_id = 1054069404410855466
 
+# Duschpalast Guild ID
+duschpalast_guild_id = 797094559988711424
+
 # Role IDs
 roles_id = {
     "booster": 853208244721287179,

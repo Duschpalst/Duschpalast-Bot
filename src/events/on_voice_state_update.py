@@ -42,7 +42,8 @@ class On_Voice_State_Update(commands.Cog):
         with open('assets/json/vc.json', 'w') as f:
             json.dump(data, f)
 
-        if self.bot.user.id == static.bot_id:
+        guild: discord.Guild = self.bot.get_guild(static.duschpalast_guild_id)
+        if self.bot.user.id == static.bot_id and member.guild == guild:
             await lvl_roles(member)
 
 
