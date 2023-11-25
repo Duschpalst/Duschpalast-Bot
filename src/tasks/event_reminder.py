@@ -2,6 +2,7 @@ import asyncio
 import calendar
 from datetime import datetime
 
+import aiohttp.client_exceptions
 import pytz
 from discord import Embed
 from discord.ext import commands
@@ -62,6 +63,6 @@ async def check_events(client: discord.Client, time):
 
             await asyncio.sleep(time)
 
-        except discord.DiscordServerError as err:
+        except aiohttp.client_exceptions.ClientOSError as err:
             print(err)
             continue
