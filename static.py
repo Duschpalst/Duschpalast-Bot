@@ -111,7 +111,7 @@ admin_cmds = [
     "Noch keine Beschreibung vorhanden."],
 
     ["roles [Geben/Nehmen] [Rolle]",
-    "Weise einem Benutzer eine Rolle zu oder nehme sie ihm weg."],
+    "Weise alle Benutzern eine Rolle zu oder nehme sie ihnen weg."],
 
     ["selfroles",
     "Noch keine Beschreibung vorhanden."],
