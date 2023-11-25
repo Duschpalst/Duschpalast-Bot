@@ -53,7 +53,7 @@ class TicTacToe(commands.Cog):
         )
 
         emb.add_field(name="",
-                      value=f"{await get_emoji('d_member', self.bot)} | {user1.mention} ist dran.")
+                      value=f"<:d_member:1177249012789809172> | {user1.mention} ist dran.")
 
         emb.timestamp = datetime.utcnow()
         emb.set_author(name='Duschpalast Bot | Games', icon_url=self.bot.user.avatar.url)
@@ -143,7 +143,7 @@ class TicTacToe(commands.Cog):
         )
 
         emb.add_field(name="",
-                      value=f"{await get_emoji('d_member', self.bot)} | {txt}")
+                      value=f"<:d_member:1177249012789809172> | {txt}")
 
         emb.timestamp = datetime.utcnow()
         emb.set_author(name='Duschpalast Bot | Games', icon_url=self.bot.user.avatar.url)
@@ -160,7 +160,7 @@ class TicTacToe(commands.Cog):
         with open('assets/json/tic-tac-toe.json', 'w') as f:
             json.dump(data, f)
 
-    async def detect_win(game):
+    async def detect_win(self, game):
         win_combinations = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]]
 
         for i in win_combinations:
