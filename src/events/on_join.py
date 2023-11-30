@@ -66,10 +66,11 @@ class On_Join(commands.Cog):
 
         general_channel = await self.bot.fetch_channel(static.channels_id['general'])
         res = SQL.execute('SELECT msg FROM general_welcome_msg ORDER BY RANDOM() LIMIT 1;')
-        msg = res.fetchone()[0]
-        msg = msg.replace("[Neuer User]", member.mention)
+        msg = res.fetchone()
 
-        await general_channel.send(msg)
+        if msg:
+            msg = msg[0].replace("[Neuer User]", member.mention)
+            await general_channel.send(msg)
 
 
     async def invite_log(self, member):
