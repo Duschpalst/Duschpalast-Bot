@@ -41,5 +41,5 @@ async def status_changer(client, time):
                     await client.change_presence(activity=discord.Activity(name="Event", type=5))
                     await asyncio.sleep(time)
 
-        except discord.errors.DiscordServerError:
+        except (discord.errors.DiscordServerError, ConnectionError):
             continue
