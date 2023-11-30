@@ -56,6 +56,7 @@ channels_id = {
     "log": 1015678383541211206,
     "team": 1015678328994271362,
     "welcome": 797094559988711427,
+    "general": 843487679265898537,
     "self_roles": 998569311369183323,
     "events": 1015680099850408038,
     "afk": 843754571377147934,
@@ -106,6 +107,9 @@ admin_cmds = [
 
     ["remove-level [User] [Level]",
     "Entferne einem Benutzer eine bestimmte Anzahl von Leveln."],
+
+    ["welcome-msg [Hinzufügen/Löschen] [Nachricht]",
+     "Verwalte die Willkommensnachricht im Allgemeinchat für neue Mitglieder auf dem Server."],
 
     ["protokoll",
     "Noch keine Beschreibung vorhanden."],

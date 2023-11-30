@@ -44,7 +44,7 @@ class Wallet(commands.Cog):
             transactions = literal_eval(transactions)
             t = ""
             for transac in transactions:
-                emoji = "<:green_plus:1174460580745191434>" if transac[0] == 'add' else "<:red_minus:1174460579562401832>"
+                emoji = "<:d_greenplus:1179883173782503434>" if transac[0] == 'add' else "<:d_redminus:1179883172431933470>"
 
                 t += f"{emoji}`{transac[1]}` {transac[2]}\n"
         else:

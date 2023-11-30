@@ -25,6 +25,9 @@ def create_sql_tables():
                 'emoji_name TEXT NOT NULL UNIQUE,'
                 'role_id INTEGER NOT NULL UNIQUE);')
 
+    SQL.execute('CREATE TABLE IF NOT EXISTS general_welcome_msg('
+                'msg TEXT NOT NULL UNIQUE);')
+
     SQL.execute('CREATE TABLE IF NOT EXISTS users('
                 'user_id INTEGER NOT NULL UNIQUE,'
                 'user_name TEXT NOT NULL,'
