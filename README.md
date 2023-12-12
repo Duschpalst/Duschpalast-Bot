@@ -12,6 +12,8 @@
 | selfroles   |         ✔️          |
 | stats       |          ❌          |
 | tic-tac-toe |          ❌          |
+| wallet      |          ❌          |
+| welcome-msg |         ✔️          |
 
 ### Code Statistics
 
