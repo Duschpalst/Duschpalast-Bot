@@ -19,14 +19,17 @@ class Roles(commands.Cog):
             await ctx.respond(embed=Embed(color=discord.Color.green(), title="Fertig",
                                           description=f"Jeder User kriegt die Role {role.mention}"),
                               ephemeral=True)
-            for i in guild.members:
-                await i.add_roles(role, atomic=True)
+            for usr in guild.members:
+                if not usr.bot:
+                    await usr.add_roles(role, atomic=True)
+
         elif givetake == "Take":
             await ctx.respond(embed=Embed(color=discord.Color.green(), title="Fertig",
                                           description=f"Jedem User wird die Role {role.mention} weggenommen"),
                               ephemeral=True)
-            for i in guild.members:
-                await i.remove_roles(role)
+            for usr in guild.members:
+                if not usr.bot:
+                    await usr.remove_roles(role)
 
 
         #else:
