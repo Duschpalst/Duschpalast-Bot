@@ -13,29 +13,44 @@ class Roles(commands.Cog):
 
     @commands.slash_command(name="roles", description="🔄 | Gebe/Lösche Jedem eine Rolle")
     @default_permissions(kick_members=True)
-    async def cmd(self, ctx, givetake: Option(str, "Give or Take", autocomplete=basic_autocomplete(["Give", "Take"]), required=True), role: Option(discord.Role, "Role", required=True)):
+    async def cmd(self, ctx: discord.ApplicationContext, givetake: Option(str, "Zuweisen oder Entfernen", autocomplete=basic_autocomplete(["Zuweisen", "Entfernen"]), required=True), role: Option(discord.Role, "Role", required=True)):
         guild: discord.Guild = ctx.guild
+
+        member_count = guild.member_count
+        emb_title = await self.create_progress_bar(0,member_count)
+
         if givetake == "Give":
-            await ctx.respond(embed=Embed(color=discord.Color.green(), title="Fertig",
-                                          description=f"Jeder User kriegt die Role {role.mention}"),
+            await ctx.respond(embed=Embed(color=discord.Color.green(), title=emb_title,
+                                          description=f"Jeder Benutzer erhält die Rolle {role.mention}"),
                               ephemeral=True)
-            for usr in guild.members:
-                if not usr.bot:
+            for count, usr in enumerate(guild.members, 1):
+                if not usr.bot and not role in usr.roles:
                     await usr.add_roles(role, atomic=True)
 
+                await ctx.edit(
+                    embed=Embed(color=discord.Color.green(), title=await self.create_progress_bar(count, member_count),
+                                description=f"Jeder Benutzer erhält die Rolle {role.mention}"))
+
         elif givetake == "Take":
-            await ctx.respond(embed=Embed(color=discord.Color.green(), title="Fertig",
-                                          description=f"Jedem User wird die Role {role.mention} weggenommen"),
+            await ctx.respond(embed=Embed(color=discord.Color.green(), title=emb_title,
+                                          description=f"Die Rolle {role.mention} wird von jedem Benutzer entfernt"),
                               ephemeral=True)
-            for usr in guild.members:
-                if not usr.bot:
+
+            for count, usr in enumerate(guild.members, 1):
+                if not usr.bot and role in usr.roles:
                     await usr.remove_roles(role)
 
+                await ctx.edit(
+                    embed=Embed(color=discord.Color.green(), title=await self.create_progress_bar(count, member_count),
+                                          description=f"Die Rolle {role.mention} wird von jedem Benutzer entfernt"))
 
-        #else:
-        #    await ctx.respond(embed=Embed(color=discord.Color.red(), title="Error"),
-        #                      ephemeral=True)
 
+    async def create_progress_bar(self, member, member_count, total_length=10):
+        filled_length = int(total_length * member / member_count)
+        percentage = round((100 / member_count * member), 1)
+
+        progress = f"|{'█' * filled_length}{' ' * (int((total_length - filled_length) * 3.2))}| {member}/{member_count} [{percentage}%]"
+        return progress
 
 def setup(client):
     client.add_cog(Roles(client))
