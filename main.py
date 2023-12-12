@@ -1,5 +1,3 @@
-# Es kann sein das die Datei nicht mit der Datei auf dem Server übereinstimmt da bei Test zwecken Funktionen deaktiviert werden oder umgeschrieben werden
-
 # Library Import
 import os
 import platform
