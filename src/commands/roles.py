@@ -19,7 +19,7 @@ class Roles(commands.Cog):
         member_count = guild.member_count
         emb_title = await self.create_progress_bar(0,member_count)
 
-        if givetake == "Give":
+        if givetake == "Zuweisen":
             await ctx.respond(embed=Embed(color=discord.Color.green(), title=emb_title,
                                           description=f"Jeder Benutzer erhält die Rolle {role.mention}"),
                               ephemeral=True)
@@ -31,7 +31,7 @@ class Roles(commands.Cog):
                     embed=Embed(color=discord.Color.green(), title=await self.create_progress_bar(count, member_count),
                                 description=f"Jeder Benutzer erhält die Rolle {role.mention}"))
 
-        elif givetake == "Take":
+        elif givetake == "Entfernen":
             await ctx.respond(embed=Embed(color=discord.Color.green(), title=emb_title,
                                           description=f"Die Rolle {role.mention} wird von jedem Benutzer entfernt"),
                               ephemeral=True)
