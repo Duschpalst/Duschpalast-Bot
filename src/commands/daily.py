@@ -36,7 +36,7 @@ class Daily(commands.Cog):
 
         SQL.execute(f'UPDATE users SET coin = coin + {coins} WHERE user_id = {user.id};')
         SQL.execute(f'UPDATE users SET xp = xp + {xp} WHERE user_id = {user.id};')
-        SQL.execute(f'UPDATE users SET daily = {now_date} WHERE user_id = {user.id};')
+        SQL.execute(f'UPDATE users SET daily = "{now_date}" WHERE user_id = {user.id};')
         db.commit()
 
         SQL.execute(f'SELECT coin FROM users WHERE user_id = {user.id}')
