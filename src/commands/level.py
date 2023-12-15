@@ -6,6 +6,7 @@ from easy_pil import Editor, load_image_async
 
 import static
 from utils.user.calc_voice_xp import calc_voice_xp
+from utils.user.cmd_reward import cmd_reward
 from utils.user.get_user_xp_lvl import get_xp_lvl
 from static import SQL, db
 
@@ -18,6 +19,8 @@ class Level(commands.Cog):
 
     @commands.slash_command(name="level", description="📈 | Zeige dir dein Aktuelles Level an")
     async def cmd(self, ctx: discord.ApplicationContext, benutzter: Option(discord.Member, "Benutzer", required=False)):
+        await cmd_reward(ctx)
+
         user = benutzter or ctx.user
         if user.bot:
             await ctx.respond(embed=Embed(color=discord.Color.red(), title="Der Benutzer ist ein Bot"), ephemeral=True)

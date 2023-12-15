@@ -6,6 +6,7 @@ from discord.ext import commands
 from discord.ui import Select, View, InputText, Button
 
 from static import SQL, invisible_character, db
+from utils.user.cmd_reward import cmd_reward
 
 
 class Welcome_Msg(commands.Cog):
@@ -17,6 +18,8 @@ class Welcome_Msg(commands.Cog):
     @commands.slash_command(name="welcome-msg", description="👋️ | Bearbeite die Willkommens Nachrichten")
     @default_permissions(kick_members=True)
     async def cmd(self, ctx):
+        await cmd_reward(ctx)
+
         emb = Embed(
             color=0x2b2d31,
             title="",

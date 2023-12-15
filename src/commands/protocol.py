@@ -7,6 +7,7 @@ from discord.ext import commands
 from discord.ui import View, Button, InputText, Select
 
 from static import SQL
+from utils.user.cmd_reward import cmd_reward
 
 
 class Protocol(commands.Cog):
@@ -18,6 +19,8 @@ class Protocol(commands.Cog):
     @commands.slash_command(name="protokoll", description="💼 | Benutzer Protokoll")
     @default_permissions(kick_members=True)
     async def cmd(self, ctx: discord.ApplicationContext):
+        await cmd_reward(ctx)
+
         msg = await start_page(ctx.guild)
         await ctx.respond(embed=msg[0], view=msg[1], ephemeral=True)
 

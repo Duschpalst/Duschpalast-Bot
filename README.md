@@ -31,6 +31,7 @@
 ### How to Earn XP
 - **For Server Booster: Multiply XP by 2**
 - **Per message:** 1 XP
+- **Per executed command:** 2 XP
 - **Per 5 min in a voice channel:** 10 XP
   - Additional 5 XP for every extra hour
 - **Using the Command `/daily`: Get 15 to 50 XP once per day**

@@ -6,6 +6,7 @@ from easy_pil import Editor, load_image_async
 from pilmoji import Pilmoji
 
 from static import SQL
+from utils.user.cmd_reward import cmd_reward
 from utils.user.get_user_xp_lvl import get_xp_lvl
 
 
@@ -17,6 +18,8 @@ class Stats(commands.Cog):
 
     @commands.slash_command(name="stats", description="📊 | Zeige dir deine Stats vom Server an")
     async def cmd(self, ctx: discord.ApplicationContext):
+        await cmd_reward(ctx)
+
         await ctx.response.defer()
         user: discord.User = ctx.user
 

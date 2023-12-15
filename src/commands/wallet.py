@@ -6,6 +6,7 @@ from discord.ext import commands
 
 import static
 from static import SQL
+from utils.user.cmd_reward import cmd_reward
 
 
 class Wallet(commands.Cog):
@@ -16,6 +17,8 @@ class Wallet(commands.Cog):
 
     @commands.slash_command(name="wallet", description="🏧 | Zeige dir deine Duschcoins an")
     async def cmd(self, ctx: discord.ApplicationContext):
+        await cmd_reward(ctx)
+
         user: discord.User = ctx.user
         SQL.execute(f'SELECT coin FROM users WHERE user_id = {user.id}')
         coins = SQL.fetchone()[0]

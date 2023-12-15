@@ -4,6 +4,7 @@ from discord.ext import commands
 from easy_pil import Editor
 
 from static import SQL
+from utils.user.cmd_reward import cmd_reward
 from utils.user.get_user_xp_lvl import get_xp_lvl
 
 
@@ -15,6 +16,8 @@ class Leaderbord(commands.Cog):
 
     @commands.slash_command(name="leaderboard", description="📋 | Zeige dir die top 10 von den Level an")
     async def cmd(self, ctx: discord.ApplicationContext):
+        await cmd_reward(ctx)
+
         SQL.execute('SELECT user_id, xp FROM users ORDER BY xp DESC')
         res = SQL.fetchmany(10)
 

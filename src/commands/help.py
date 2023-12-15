@@ -7,6 +7,7 @@ from discord.ext import commands
 from discord.ui import View, Button, Select, InputText
 
 from static import *
+from utils.user.cmd_reward import cmd_reward
 
 
 class Help(commands.Cog):
@@ -19,6 +20,8 @@ class Help(commands.Cog):
 
     @commands.slash_command(name="help", description="❓ | Benötigst du Hilfe?")
     async def cmd(self, ctx: discord.ApplicationContext):
+        await cmd_reward(ctx)
+
         self.guild: discord.Guild = ctx.guild
 
         admin = ctx.author.guild_permissions.kick_members
@@ -175,6 +178,7 @@ class Help(commands.Cog):
             name="<:d_creditcard:1176229782833348709> | XP verdienen:",
             value=f"↣ Booster: XP * 2\n"
                   f"↣ Pro Nachricht: `1 XP`\n"
+                  f"↣ Pro Ausgeführten Command: `2 XP`\n"
                   f"↣ Pro 5 Min im Sprachkanal: `10 XP`\n"
                   f"↣ `+5 XP` pro Stunde\n"
                   f"Durch </daily:1175468452123783270>: Täglich `15-50` XP",

@@ -8,6 +8,7 @@ from discord.ext import commands
 import static
 from static import *
 from utils.user.add_last_transaction import add_last_transaction
+from utils.user.cmd_reward import cmd_reward
 
 
 class Daily(commands.Cog):
@@ -18,6 +19,8 @@ class Daily(commands.Cog):
 
     @commands.slash_command(name="daily", description="📆 | Hole dir deine Tägliche belohnung ab")
     async def cmd(self, ctx: discord.ApplicationContext):
+        await cmd_reward(ctx)
+
         user = ctx.user
         SQL.execute(f'SELECT daily FROM users WHERE user_id = {user.id}')
         date = SQL.fetchone()[0]

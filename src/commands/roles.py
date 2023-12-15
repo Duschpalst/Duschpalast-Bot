@@ -5,6 +5,8 @@ from discord import Option, Embed, default_permissions
 from discord.ext import commands
 from discord.utils import basic_autocomplete
 
+from utils.user.cmd_reward import cmd_reward
+
 
 class Roles(commands.Cog):
 
@@ -15,7 +17,15 @@ class Roles(commands.Cog):
 
     @commands.slash_command(name="roles", description="🔄 | Gebe/Lösche Jedem eine Rolle")
     @default_permissions(kick_members=True)
-    async def cmd(self, ctx: discord.ApplicationContext, givetake: Option(str, "Zuweisen oder Entfernen", autocomplete=basic_autocomplete(["Zuweisen", "Entfernen"]), required=True), role: Option(discord.Role, "Role", required=True)):
+    async def cmd(self, ctx: discord.ApplicationContext,
+                  givetake: Option(str, "Zuweisen oder Entfernen",
+                                   autocomplete=basic_autocomplete(["Zuweisen", "Entfernen"]),
+                                   required=True),
+                  role: Option(discord.Role, "Role", required=True)):
+
+        await cmd_reward(ctx)
+
+
         guild: discord.Guild = ctx.guild
 
         member_count = guild.member_count

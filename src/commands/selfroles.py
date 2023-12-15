@@ -8,6 +8,7 @@ from discord.ui import View, Button, InputText
 
 from static import SQL, db
 from src.user_interactions.self_roles import self_roles
+from utils.user.cmd_reward import cmd_reward
 
 
 class SelfRoles(commands.Cog):
@@ -21,6 +22,8 @@ class SelfRoles(commands.Cog):
     @commands.slash_command(name="selfroles", description="🛠️ | Bearbeite die Self Roles")
     @default_permissions(kick_members=True)
     async def cmd(self, ctx: discord.ApplicationContext):
+        await cmd_reward(ctx)
+
         view = View(timeout=30)
         button1 = Button(label="+ Gaming Option", custom_id="add_gaming_option", style=discord.ButtonStyle.green)
         button2 = Button(label="+ Programming Option", custom_id="add_programming_option",

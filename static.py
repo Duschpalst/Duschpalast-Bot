@@ -17,6 +17,7 @@ booster_xp_multiplier = 2
 
 # XP rewards for various actions
 message_xp = 1
+cmd_xp = 2
 call_xp_5min = 10
 call_xp_60min = 5
 

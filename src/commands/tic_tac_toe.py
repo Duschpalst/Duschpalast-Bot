@@ -7,6 +7,7 @@ from discord.ext import commands
 from discord.ui import View, Button
 
 from utils.guilds.get_emoji import get_emoji
+from utils.user.cmd_reward import cmd_reward
 
 
 class TicTacToe(commands.Cog):
@@ -17,6 +18,8 @@ class TicTacToe(commands.Cog):
 
     @commands.slash_command(name="tic-tac-toe", description="🎲 | Tic Tac Toe")
     async def cmd(self, ctx: discord.ApplicationContext, benutzter: Option(discord.Member, "Benutzer", required=True)):
+        await cmd_reward(ctx)
+
         user2 = benutzter
         user1 = ctx.user
         if user1 == user2:
