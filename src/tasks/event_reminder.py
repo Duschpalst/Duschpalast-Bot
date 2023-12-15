@@ -40,8 +40,17 @@ async def check_events(client: discord.Client, time):
             for event in events:
                 time_difference  = calendar.timegm(event.start_time.timetuple()) - calendar.timegm(now.timetuple())
                 if -30 < time_difference < 30:
+                    announcement = (
+                        f"📢 **Aufgepasst, liebe <@&843963164056092732>!** 🎉\n\n"
+                        f"In Kürze wird ein Event stattfinden!\n\n"
+                        f"**Event:** {event.name}\n"
+                        f"**Startzeit:** <t:{calendar.timegm(event.start_time.timetuple())}:R>\n"
+                        f"Schaut vorbei und erlebt gemeinsam mit uns unvergessliche Momente. Wir freuen uns auf eure Teilnahme!\n\n"
+                        f"👉 Weitere Details findet ihr [hier]({event.url})."
+                    )
+
                     event_channel = await client.fetch_channel(static.channels_id['events'])
-                    await event_channel.send(f"**<@&843963164056092732> <t:{calendar.timegm(event.start_time.timetuple())}:R> findet ein Event statt!!** \n{event.url}")
+                    await event_channel.send(announcement)
 
                     emb = Embed(color=0x00ffff,
                                 title=f"**Bald findet das Event ```{event.name}``` statt!!**")
