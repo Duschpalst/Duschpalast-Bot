@@ -7,7 +7,7 @@ from easy_pil import Editor, load_image_async
 from PIL import ImageFont
 
 import static
-from static import SQL
+from static import SQL, join_roles
 
 
 class On_Join(commands.Cog):
@@ -26,6 +26,7 @@ class On_Join(commands.Cog):
 
 
         await self.welcome_msg(member)
+        await self.give_roles(member)
         await self.invite_log(member)
 
 
@@ -72,6 +73,11 @@ class On_Join(commands.Cog):
             msg = msg[0].replace("[Neuer User]", member.mention)
             await general_channel.send(msg)
 
+
+    async def give_roles(self, member):
+        for i in join_roles:
+            role = member.guild.get_role(i[0])
+            await member.add_roles(role, reason="Autoroles", atomic=True)
 
     async def invite_log(self, member):
         logs = await self.bot.fetch_channel(static.channels_id['log'])

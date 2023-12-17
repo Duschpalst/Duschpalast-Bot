@@ -2,3 +2,5 @@
 /secret.py
 /.idea
 /testing_stuff
+test*
+tmp*

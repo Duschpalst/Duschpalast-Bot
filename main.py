@@ -1,6 +1,7 @@
 # Library Import
 import os
 import platform
+import sys
 
 import discord
 
@@ -14,6 +15,14 @@ from utils.guilds.update_invites import update_invites
 client = discord.Bot(intents=discord.Intents.all())
 
 create_sql_tables()
+
+""""def MyErrorHandler(message):
+    static.err_message += message
+    print(static.err_message)
+
+
+sys.stderr.write = MyErrorHandler"""
+
 
 
 @client.event

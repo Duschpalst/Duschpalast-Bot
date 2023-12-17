@@ -30,6 +30,9 @@ daily_coin_reward_max = 100
 daily_xp_reward_min = 15
 daily_xp_reward_max = 50
 
+# Roles everyone becomes on Server Join
+join_roles = [1015943649672048660, 1015925203617984593, 1015926714079133736, 1015926956144992327, 843963164056092732]
+
 # Message IDs for self-assignable roles
 self_roles_messages_id = [1174125525892071474, 1174125527058108487, 1174125528136040518]
 
