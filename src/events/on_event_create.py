@@ -14,9 +14,9 @@ class On_Event_Create(commands.Cog):
 
     @commands.Cog.listener()
     async def on_scheduled_event_create(self, event: discord.ScheduledEvent):
-        event_channel = await self.bot.fetch_channel(static.channels_id['events'])
+        event_channel = await self.bot.fetch_channel(static.channels_id['news'])
         await event_channel.send(
-            f"**Hey, liebe <@&843963164056092732>! 🎉 Ein neues Event steht an!**\n\n"
+            f"**Hey, liebe <@&{static.roles_id['d-member']}>! 🎉 Ein neues Event steht an!**\n\n"
             f"Wir freuen uns, euch mitteilen zu können, dass ein neues Event geplant wurde. Hier sind die Details:\n"
             f"**Event:** {event.name}\n"
             f"**Startzeit:** <t:{calendar.timegm(event.start_time.timetuple())}:R>\n"
