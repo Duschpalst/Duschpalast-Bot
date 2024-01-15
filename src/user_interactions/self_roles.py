@@ -30,7 +30,7 @@ async def callback(interaction, which, selectmenu):
     if which == "games":
         table = "self_roles_games"
     #elif which == "programming":
-        #table = "self_roles_programming"
+    #   table = "self_roles_programming"
     elif which == "age":
         table = "self_roles_age"
     elif which == "gender":
