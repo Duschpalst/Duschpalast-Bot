@@ -29,8 +29,8 @@ async def callback(interaction, which, selectmenu):
     table = ""
     if which == "games":
         table = "self_roles_games"
-    elif which == "programming":
-        table = "self_roles_programming"
+    #elif which == "programming":
+        #table = "self_roles_programming"
     elif which == "age":
         table = "self_roles_age"
     elif which == "gender":
@@ -132,6 +132,7 @@ async def self_roles(client):
             ephemeral=True)
         await callback(interaction, "games", games)
 
+    """
     SQL.execute('SELECT * FROM self_roles_programming ORDER BY name;')
     res = SQL.fetchall()
     count_p = math.ceil(len(res) / 25)
@@ -157,6 +158,7 @@ async def self_roles(client):
             embed=Embed(color=discord.Color.green(), title="Updated"),
             ephemeral=True)
         await callback(interaction, "programming", programming)
+    """
 
     view1_general = View(timeout=None)
     view1_general.add_item(gender[0])
@@ -169,13 +171,14 @@ async def self_roles(client):
         games[x].callback = games_callback
         view2_games.add_item(games[x])
 
+    """
     view3_programming = View(timeout=None)
     for x in range(count_p):
         programming[x].callback = programming_callback
         view3_programming.add_item(programming[x])
+    """
 
     channel = await client.fetch_channel(static.channels_id['self_roles'])
     await (await channel.fetch_message(self_roles_messages_id[0])).edit("\n## __**Genereles:**__", view=view1_general)
     await (await channel.fetch_message(self_roles_messages_id[1])).edit("\n## __**Games:**__", view=view2_games)
-    await (await channel.fetch_message(self_roles_messages_id[2])).edit("\n## __**Programmierung:**__",
-                                                                        view=view3_programming)
+    #await (await channel.fetch_message(self_roles_messages_id[2])).edit("\n## __**Programmierung:**__", view=view3_programming)
