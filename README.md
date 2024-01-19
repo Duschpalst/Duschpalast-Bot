@@ -1,6 +1,6 @@
 # Duschpalast-Bot
 
-| Command     | Permission required |
+| Command     | Moderation Commands |
 |-------------|:-------------------:|
 | clear       |         ✔️          |
 | daily       |          ❌          |
@@ -20,7 +20,8 @@
 - **Total Lines:** 2909
 - **Source Code Lines:** 2161 (74%)
 - **Comment Lines:** 29 (1%)
-- **Blank Lines:** 719 (25%)
+- **Blank Lines:** 719 (25%)\
+(last update: 15.12.2023)
 
 ## FAQ
 
