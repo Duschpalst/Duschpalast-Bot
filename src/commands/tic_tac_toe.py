@@ -8,6 +8,7 @@ from discord.ui import View, Button
 
 from utils.guilds.get_emoji import get_emoji
 from utils.user.cmd_reward import cmd_reward
+from static import emojis
 
 
 class TicTacToe(commands.Cog):
@@ -56,7 +57,7 @@ class TicTacToe(commands.Cog):
         )
 
         emb.add_field(name="",
-                      value=f"<:d_member:1177249012789809172> | {user1.mention} ist dran.")
+                      value=f"{emojis['member']} | {user1.mention} ist dran.")
 
         emb.timestamp = datetime.utcnow()
         emb.set_author(name='Duschpalast Bot | Games', icon_url=self.bot.user.avatar.url)
@@ -146,7 +147,7 @@ class TicTacToe(commands.Cog):
         )
 
         emb.add_field(name="",
-                      value=f"<:d_member:1177249012789809172> | {txt}")
+                      value=f"{emojis['member']} | {txt}")
 
         emb.timestamp = datetime.utcnow()
         emb.set_author(name='Duschpalast Bot | Games', icon_url=self.bot.user.avatar.url)

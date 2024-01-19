@@ -5,7 +5,7 @@ from discord import Embed
 from discord.ext import commands
 
 import static
-from static import SQL
+from static import SQL, emojis
 from utils.user.cmd_reward import cmd_reward
 
 
@@ -34,7 +34,7 @@ class Wallet(commands.Cog):
         else:
             emb.set_thumbnail(url=str(user.avatar.url))
 
-        emb.add_field(name="**• Duschcoins<:duschcoin:1174139658712649729>**",
+        emb.add_field(name=f"**• Duschcoins{emojis['duschcoin']}**",
                       value=f"**Du besitzt  `{coins}` Duschcoins**")
 
         emb.add_field(name="**• Rang**",
@@ -47,7 +47,7 @@ class Wallet(commands.Cog):
             transactions = literal_eval(transactions)
             t = ""
             for transac in transactions:
-                emoji = "<:d_greenplus:1179883173782503434>" if transac[0] == 'add' else "<:d_redminus:1179883172431933470>"
+                emoji = emojis['greenplus'] if transac[0] == 'add' else emojis['redminus']
 
                 t += f"{emoji}`{transac[1]}` {transac[2]}\n"
         else:

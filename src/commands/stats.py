@@ -5,7 +5,7 @@ from PIL import ImageFont, Image
 from easy_pil import Editor, load_image_async
 from pilmoji import Pilmoji
 
-from static import SQL
+from static import SQL, emojis
 from utils.user.cmd_reward import cmd_reward
 from utils.user.get_user_xp_lvl import get_xp_lvl
 
@@ -51,7 +51,7 @@ class Stats(commands.Cog):
         base.text((65, 440), "Level 📈", font=f30, color="#eeeeee")
         base.text((65, 490), str(lvl), font=f30, color="#a0a0a0")
 
-        base.text((65, 585), "Coins <:duschcoin:1174139658712649729>", font=f30, color="#eeeeee")
+        base.text((65, 585), f"Coins {emojis['duschcoin']}", font=f30, color="#eeeeee")
         base.text((65, 635), str(coins), font=f30, color="#a0a0a0")
 
         base.text((65, 690), "Zeit in", font=f30, color="#eeeeee")

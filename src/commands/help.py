@@ -31,18 +31,6 @@ class Help(commands.Cog):
     async def view(self, admin=False):
         v = View(timeout=900)
 
-        categories_list = [
-            ["Startseite", "Kehre zur Startseite zurück.", "<:d_compass:1175897308911640686>"],
-            ["Allgemein Commands", "Allgemeine Befehle die jeder Nutzer nutzen kann.", "<:d_slashcommand:1176228551050154045>"],
-            ["Wie das Level System funktioniert", "Zeige dir alles zum Level System an.", "<:d_metrics:1176229778177658961>"],
-            ["Wie das Duschcoins System funktioniert", "Zeige dir alles zum Duschcoins System an.", "<:d_creditcard:1176229782833348709>"],
-            ["Games (Cooming Soon)", "Zeige dir alles zu Games an.", "<:d_bughunter:1175897321532305529>"]
-        ]
-
-        admin_categories_list = [
-            ["Moderation Commands", "Befehle für Moderation des Servers.", "<:d_settings:1175897310471913543>"],
-        ]
-
         if admin:
             categories_list.extend(admin_categories_list)
 
@@ -94,7 +82,7 @@ class Help(commands.Cog):
         emb = Embed(
             color=0x2b2d31,
             title="",
-            description='> ️<:d_info:1175897319389016125> × Hier findest du **alle relevanten Informationen** zu den **Befehlen** und **weiteren Funktionen** dieses Discord-Bots.',
+            description=f'> ️{emojis["info"]} × Hier findest du **alle relevanten Informationen** zu den **Befehlen** und **weiteren Funktionen** dieses Discord-Bots.',
             )
 
         emb.timestamp = datetime.utcnow()
@@ -103,7 +91,7 @@ class Help(commands.Cog):
         emb.set_footer(text='Duschpalast Bot | Help')
 
         emb.add_field(
-            name="<:d_staff:1175897436129079306> | Generelle Server Infos",
+            name=f"{emojis['staff']} | Generelle Server Infos",
             value=f"↣ Mitglieder: `{len(self.guild.members)}`\n"
                   f"↣ Server Owner: \n`{self.guild.owner}`\n",
             inline=True
@@ -116,7 +104,7 @@ class Help(commands.Cog):
                     cmd_count += 1
 
         emb.add_field(
-            name="<:d_bot:1175897439375474690> | Generelle Bot Infos",
+            name=f"{emojis['bot']} | Generelle Bot Infos",
             value=f"↣ Commands: `{cmd_count}`\n"
                   f"↣ Ping: `{round(self.bot.latency * 1000)}ms`\n",
             inline=True
@@ -124,7 +112,7 @@ class Help(commands.Cog):
 
         emb.add_field(
             name=f"{invisible_character}\n{invisible_character}",
-            value="> <:d_info:1175897319389016125> × Durch das **Klicken** auf die **Kategorien**, siehst du alle Kategorien zur der du **Hilfe** bekommen kannst!",
+            value=f"> {emojis['info']} × Durch das **Klicken** auf die **Kategorien**, siehst du alle Kategorien zur der du **Hilfe** bekommen kannst!",
             inline=False
         )
 
@@ -135,7 +123,7 @@ class Help(commands.Cog):
         emb = Embed(
             color=0x2b2d31,  # 0x2f3136,
             title="",
-            description='> <:d_category:1175897311784742942> × Hier findest du **alle Befehle** die du nutzten kannst. (Optional) [Verpflichtend]',
+            description=f'> {emojis["category"]} × Hier findest du **alle Befehle** die du nutzten kannst. (Optional) [Verpflichtend]',
         )
 
         emb.timestamp = datetime.utcnow()
@@ -159,7 +147,7 @@ class Help(commands.Cog):
         emb = Embed(
             color=0x2b2d31,  # 0x2f3136,
             title="",
-            description='> <:d_metrics:1176229778177658961> × Hier findest du alle wichtige **Informationen** und **Befehle** zum Level System. (Optional) [Verpflichtend]',
+            description=f'> {emojis["metrics"]} × Hier findest du alle wichtige **Informationen** und **Befehle** zum Level System. (Optional) [Verpflichtend]',
         )
 
         emb.timestamp = datetime.utcnow()
@@ -168,14 +156,14 @@ class Help(commands.Cog):
         emb.set_footer(text='Duschpalast Bot | Help')
 
         emb.add_field(
-            name="<:d_metrics:1176229778177658961> | Level-System:",
+            name=f"{emojis['metrics']} | Level-System:",
             value=f"↣ Basis-XP für ein Level: `250 XP`\n"
                   f"↣ XP-Inkrement pro Level: `10 XP`",
             inline=True
         )
 
         emb.add_field(
-            name="<:d_creditcard:1176229782833348709> | XP verdienen:",
+            name=f"{emojis['creditcard']} | XP verdienen:",
             value=f"↣ Booster: XP * 2\n"
                   f"↣ Pro Nachricht: `1 XP`\n"
                   f"↣ Pro Ausgeführten Command: `2 XP`\n"
@@ -186,7 +174,7 @@ class Help(commands.Cog):
         )
 
         emb.add_field(
-            name="<:d_slashcommand:1176228551050154045> | Befehle für das Level-System",
+            name=f"{emojis['slashcommand']} | Befehle für das Level-System",
             value="",
             inline=False
         )
@@ -208,7 +196,7 @@ class Help(commands.Cog):
         emb = Embed(
             color=0x2b2d31,  # 0x2f3136,
             title="",
-            description='> <:d_creditcard:1176229782833348709> × Hier findest du alle wichtige **Informationen** und **Befehle** zum Duschcoin System. (Optional) [Verpflichtend]',
+            description=f'> {emojis["creditcard"]} × Hier findest du alle wichtige **Informationen** und **Befehle** zum Duschcoin System. (Optional) [Verpflichtend]',
         )
 
         emb.timestamp = datetime.utcnow()
@@ -217,14 +205,14 @@ class Help(commands.Cog):
         emb.set_footer(text='Duschpalast Bot | Help')
 
         emb.add_field(
-            name="<:d_creditcard:1176229782833348709> | Duschcoins verdienen:",
+            name=f"{emojis['creditcard']} | Duschcoins verdienen:",
             value=f"↣ Pro Level-Up: `100` Duschcoins\n"
                   f"↣ Durch </daily:1175468452123783270>: Täglich `50-100` Duschcoins",
             inline=True
         )
 
         emb.add_field(
-            name="<:d_slashcommand:1176228551050154045> | Befehle für Duschcoins",
+            name=f"{emojis['slashcommand']} | Befehle für Duschcoins",
             value="",
             inline=False
         )
@@ -246,7 +234,7 @@ class Help(commands.Cog):
         emb = Embed(
             color=0x2b2d31,  # 0x2f3136,
             title="",
-            description='> <:d_settings:1175897310471913543> × Hier findest du alle wichtigen **Befehle** für die Moderation des Servers. (Optional) [Verpflichtend]',
+            description=f'> {emojis["settings"]} × Hier findest du alle wichtigen **Befehle** für die Moderation des Servers. (Optional) [Verpflichtend]',
         )
 
         emb.timestamp = datetime.utcnow()
@@ -323,7 +311,7 @@ class Help(commands.Cog):
             async def help_btn_callback(interaction: discord.Interaction):
                 if interaction.custom_id == "cancel":
                     emb_c = discord.Embed(title="Abgebrochen",
-                                          description="<:d_cross:1176957164988924036> | Du kannst jetzt diese Nachricht Löschen",
+                                          description=f"{emojis['cross']} | Du kannst jetzt diese Nachricht Löschen",
                                           colour=0x2b2d31)
 
                     emb_c.timestamp = datetime.utcnow()
@@ -342,7 +330,7 @@ class Help(commands.Cog):
 
                 elif interaction.custom_id == "submit":
                     emb_s1 = discord.Embed(title="Erfolgreich gesendet",
-                                          description="<:d_chat:1176956349045805279> | Vielen Dank, Wir haben deine Nachricht bekommen und werden diese jetzt bearbeiten",
+                                          description=f"{emojis['chat']} | Vielen Dank, Wir haben deine Nachricht bekommen und werden diese jetzt bearbeiten",
                                           colour=0x2b2d31,
                                           timestamp=datetime.now())
 

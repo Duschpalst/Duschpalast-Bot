@@ -75,6 +75,39 @@ channels_id = {
     "in_voice": 1071784772533223454,
 }
 
+
+emojis = {
+    "bot": '<:d_bot:1175897439375474690>',
+    "bughunter": '<:d_bughunter:1175897321532305529>',
+    "category": '<:d_category:1175897311784742942>',
+    "chat": '<:d_chat:1176956349045805279>',
+    "compass": '<:d_compass:1175897308911640686>',
+    "creditcard": '<:d_creditcard:1176229782833348709>',
+    "cross": '<:d_cross:1176957164988924036>',
+    "duschcoin": '<:duschcoin:1174139658712649729>',
+    "greenplus": '<:d_greenplus:1179883173782503434>',
+    "info": '<:d_info:1175897319389016125>',
+    "member": '<:d_member:1177249012789809172>',
+    "metrics": '<:d_metrics:1176229778177658961>',
+    "redminus": '<:d_redminus:1179883172431933470>',
+    "settings": '<:d_settings:1175897310471913543>',
+    "slashcommand": '<:d_slashcommand:1176228551050154045>',
+    "staff": '<:d_staff:1175897436129079306>',
+}
+
+
+categories_list = [
+        ["Startseite", "Kehre zur Startseite zurück.", emojis['compass']],
+        ["Allgemein Commands", "Allgemeine Befehle die jeder Nutzer nutzen kann.", emojis['slashcommand']],
+        ["Wie das Level System funktioniert", "Zeige dir alles zum Level System an.", emojis['metrics']],
+        ["Wie das Duschcoins System funktioniert", "Zeige dir alles zum Duschcoins System an.", emojis['creditcard']],
+        ["Games (Cooming Soon)", "Zeige dir alles zu Games an.", emojis['bughunter']]
+]
+
+admin_categories_list = [
+    ["Moderation Commands", "Befehle für Moderation des Servers.", emojis['settings']],
+    ]
+
 # Command descriptions
 basic_cmds = [
     ["help",

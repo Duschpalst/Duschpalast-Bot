@@ -54,12 +54,12 @@ class Daily(commands.Cog):
         emb.add_field(name="XP", value=f"Du bekommst `{xp}` XP", inline=True)
         emb.add_field(
             name="Coins",
-            value=f"Du bekommst `{coins}` Duschcoins <:duschcoin:1174139658712649729>",
+            value=f"Du bekommst `{coins}` Duschcoins {emojis['duschcoin']}",
             inline=False
         )
         emb.add_field(
             name="Gesamte Duschcoins",
-            value=f"Deine Gesamten Duschcoins sind jetzt: `{res}` <:duschcoin:1174139658712649729>",
+            value=f"Deine Gesamten Duschcoins sind jetzt: `{res}` {emojis['duschcoin']}",
             inline=False
         )
 

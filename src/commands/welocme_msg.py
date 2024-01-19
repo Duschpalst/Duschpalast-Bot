@@ -5,7 +5,7 @@ from discord import Embed, default_permissions
 from discord.ext import commands
 from discord.ui import Select, View, InputText, Button
 
-from static import SQL, invisible_character, db
+from static import SQL, invisible_character, db, emojis
 from utils.user.cmd_reward import cmd_reward
 
 
@@ -23,7 +23,7 @@ class Welcome_Msg(commands.Cog):
         emb = Embed(
             color=0x2b2d31,
             title="",
-            description='> <:d_settings:1175897310471913543> × Verwalte die **Willkommensnachricht** für **neue Mitglieder** auf dem Server für den **Allgemeinchat**.',
+            description=f'> {emojis["settings"]} × Verwalte die **Willkommensnachricht** für **neue Mitglieder** auf dem Server für den **Allgemeinchat**.',
         )
 
         emb.timestamp = datetime.utcnow()
@@ -35,7 +35,7 @@ class Welcome_Msg(commands.Cog):
         res = SQL.execute('SELECT COUNT(*) FROM general_welcome_msg;')
         count = res.fetchone()[0]
         emb.add_field(
-            name="<:d_info:1175897319389016125> | Willkommensnachricht Infos",
+            name=f"{emojis['info']} | Willkommensnachricht Infos",
             value=f"↣ Die Willkommensnachricht wird Random ausgewählt\n"
                   f"↣ Aktuelle Willkommensnachrichten: `{count}`\n",
             inline=True
@@ -43,7 +43,7 @@ class Welcome_Msg(commands.Cog):
 
         emb.add_field(
             name=f"{invisible_character}\n{invisible_character}",
-            value="> <:d_info:1175897319389016125> × Durch das **Klicken** auf die **Nachricht**, kannst du eine **Willkommensnachricht** für den Allgemeinchat Hinzufügen oder Löschen.",
+            value=f"> {emojis['info']} × Durch das **Klicken** auf die **Nachricht**, kannst du eine **Willkommensnachricht** für den Allgemeinchat Hinzufügen oder Löschen.",
             inline=False
         )
 
@@ -54,13 +54,13 @@ class Welcome_Msg(commands.Cog):
                 discord.SelectOption(
                     label="Hinzufügen",
                     description="Füge eine Willkommensnachricht dazu.",
-                    emoji="<:d_greenplus:1179883173782503434>",
+                    emoji=emojis['greenplus'],
                     value="add"
                 ),
                 discord.SelectOption(
                     label="Entfernen",
                     description="Lösche eine Willkommensnachricht.",
-                    emoji="<:d_redminus:1179883172431933470>",
+                    emoji=emojis['redminus'],
                     value="delete"
                 ),
             ],
@@ -132,7 +132,7 @@ class Welcome_Msg(commands.Cog):
             async def add_btn_callback(interaction: discord.Interaction):
                 if interaction.custom_id == "cancel":
                     emb_c = discord.Embed(title="Abgebrochen",
-                                          description="<:d_cross:1176957164988924036> | Du kannst jetzt diese Nachricht Löschen",
+                                          description=f"{emojis['cross']} | Du kannst jetzt diese Nachricht Löschen",
                                           colour=0x2b2d31)
 
                     emb_c.timestamp = datetime.utcnow()
@@ -147,7 +147,7 @@ class Welcome_Msg(commands.Cog):
 
                 elif interaction.custom_id == "submit":
                     emb_s = discord.Embed(title="Erfolgreich gesendet",
-                                          description="<:d_chat:1176956349045805279> | Die neue Willkommensnachricht ist erfolgreich eingegangen.",
+                                          description=f"{emojis['chat']} | Die neue Willkommensnachricht ist erfolgreich eingegangen.",
                                           colour=0x2b2d31,
                                           timestamp=datetime.now())
 
@@ -182,7 +182,7 @@ class Welcome_Msg(commands.Cog):
         emb = Embed(
             color=0x2b2d31,
             title="",
-            description='> <:d_settings:1175897310471913543> × Hier ist die Liste der **Willkommensnachrichten** für **neue Mitglieder** auf dem Server für den **Allgemeinchat**.',
+            description=f'> {emojis["settings"]} × Hier ist die Liste der **Willkommensnachrichten** für **neue Mitglieder** auf dem Server für den **Allgemeinchat**.',
         )
 
         emb.timestamp = datetime.utcnow()
@@ -215,7 +215,7 @@ class Welcome_Msg(commands.Cog):
             db.commit()
 
             emb_d = discord.Embed(title="Willkommensnachricht gelöscht",
-                                  description="<:d_cross:1176957164988924036> | Du kannst jetzt diese Nachricht Löschen",
+                                  description=f"{emojis['cross']} | Du kannst jetzt diese Nachricht Löschen",
                                   colour=0x2b2d31)
 
             emb_d.timestamp = datetime.utcnow()

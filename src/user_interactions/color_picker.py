@@ -6,7 +6,7 @@ from discord.ext import commands
 from discord.ui import Select, View, Button
 
 import static
-from static import SQL, db, color_picker_message_id
+from static import SQL, db, color_picker_message_id, emojis
 from utils.user.add_last_transaction import add_last_transaction
 
 
@@ -90,9 +90,9 @@ async def color_picker(client):
     button1.callback = reset_btn_callback
     button2.callback = custom_btn_callback
 
-    txt = ("## __***Farbe mit der Du auf den Server angezeigt wirst:***__\n"
-           "> Kostet `100` Duschcoins<:duschcoin:1095835086403940352> (für Vips die Hälfte und Server Booster ein Viertel)\n"
-           "> Benutzerdefinierte Farbe nur für Server Booster und Vip")
+    txt = (f"## __***Farbe mit der Du auf den Server angezeigt wirst:***__\n"
+           f"> Kostet `100` Duschcoins{emojis['duschcoin']} (für Vips die Hälfte und Server Booster ein Viertel)\n"
+           f"> Benutzerdefinierte Farbe nur für Server Booster und Vip")
 
     channel = await client.fetch_channel(static.channels_id['self_roles'])
     await (await channel.fetch_message(color_picker_message_id)).edit(txt, view=view)
