@@ -8,6 +8,7 @@ from discord.ui import Select, View, Button
 import static
 from static import SQL, db, color_picker_message_id, emojis
 from utils.user.add_last_transaction import add_last_transaction
+from utils.user.get_role import get_role_by_id
 
 
 class Color_Picker(commands.Cog):
@@ -46,10 +47,17 @@ async def color_picker(client):
     async def callback(interaction: discord.Interaction):
         user: discord.Member = interaction.user
 
-        booster_role = discord.utils.get(interaction.guild.roles, id=static.roles_id['booster'])
-        vip_role = discord.utils.get(interaction.guild.roles, id=static.roles_id['vip'])
+        team_role = get_role_by_id(static.roles_id['team'])
+        booster_role = get_role_by_id(static.roles_id['booster'])
+        vip_role = get_role_by_id(static.roles_id['vip'])
 
-        if booster_role in user.roles:
+        if team_role in user.roles:
+            await interaction.response.send_message(
+                embed=Embed(color=discord.Color.red(), title="Diese Funktion ist für das Team Deaktiviert"),
+                ephemeral=True)
+            return
+
+        elif booster_role in user.roles:
             cost = 25
         elif vip_role in user.roles:
             cost = 50

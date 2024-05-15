@@ -8,10 +8,10 @@ import discord
 # Files Import
 import secret
 import static
+from static import client
 from assets.create_tables import create_sql_tables
 from utils.guilds.update_invites import update_invites
 
-client = discord.Bot(intents=discord.Intents.all())
 
 create_sql_tables()
 

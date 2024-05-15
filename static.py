@@ -1,5 +1,9 @@
 import os
 import sqlite3
+import discord
+
+client = discord.Bot(intents=discord.Intents.all())
+
 
 # SQL setup
 DIR = os.path.dirname(__file__)
@@ -50,6 +54,7 @@ duschpalast_guild_id = 797094559988711424
 
 # Role IDs
 roles_id = {
+    "team": 1015943649147768943,
     "booster": 853208244721287179,
     "vip": 928786184866508801,
     "bot": 844980448094715947,
