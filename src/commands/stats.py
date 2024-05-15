@@ -1,6 +1,7 @@
 from datetime import timedelta, datetime
 import discord
 from discord.ext import commands
+import requests
 from PIL import ImageFont, Image
 from easy_pil import Editor, load_image_async
 from pilmoji import Pilmoji
@@ -22,6 +23,7 @@ class Stats(commands.Cog):
 
         await ctx.response.defer()
         user: discord.User = ctx.user
+        guild: discord.Guild = ctx.guild
 
         SQL.execute(f'SELECT coin, msg_count, vc_time FROM users WHERE user_id = {user.id}')
         coins, msg_count, vc_time = SQL.fetchone()
@@ -35,7 +37,9 @@ class Stats(commands.Cog):
         joined_at = user.joined_at.strftime("%d.%m.%Y")
 
         base = Pilmoji(Image.open(f"assets/img/stats.png").convert("RGBA"))
-        background = Editor(f"assets/img/stats_bg.png")
+        background = Image.open(requests.get(str(guild.icon.url), stream=True).raw).resize((696, 696))
+        background = background.crop((0, 100, 696, 377))
+        ima = Editor(Image.new(mode="RGB", size=(696, 901)))
 
         name = f"{name[:15]}..." if len(name) > 15 else name
 
@@ -78,11 +82,12 @@ class Stats(commands.Cog):
 
         profile = Editor(profile).resize((215, 215)).circle_image()
 
-        background.paste(base.image, (0, 0))
+        ima.paste(background, (0, 0))
+        ima.paste(base.image, (0, 0))
 
-        background.paste(profile, (56, 158))
+        ima.paste(profile, (56, 158))
 
-        card = discord.File(fp=background.image_bytes, filename="stats.png")
+        card = discord.File(fp=ima.image_bytes, filename="stats.png")
         await ctx.followup.send(file=card)
 
 

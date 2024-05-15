@@ -33,7 +33,9 @@ class On_Join(commands.Cog):
     async def welcome_msg(self, member):
         f75 = ImageFont.truetype("assets/fonts/ARLRDBD.TTF", 75)
         f50 = ImageFont.truetype("assets/fonts/ARLRDBD.TTF", 50)
-        background = Editor(f"assets/img/welcome.png")
+
+        guid: discord.Guild = member.guild
+        background = Editor(await load_image_async(str(guid.icon.url))).resize((512, 512))
         if not member.avatar:
             profile = await load_image_async(str(member.default_avatar))
         else:
@@ -41,7 +43,7 @@ class On_Join(commands.Cog):
 
         profile = Editor(profile).resize((192, 192)).circle_image()
 
-        ima = Editor("assets/img/welcome.png")
+        ima = Editor(await load_image_async(str(guid.icon.url))).resize((512, 512))
         background.blend(image=ima, alpha=.5, on_top=False)
 
         background.ellipse(
