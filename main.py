@@ -25,11 +25,12 @@ sys.stderr.write = MyErrorHandler"""
 
 @client.event
 async def on_ready():
-    log_prefix = (Back.BLACK + Fore.GREEN + time.strftime("%H:%M:%S UTC", time.gmtime()) + Back. RESET + Fore.WHITE + Style.BRIGHT)
+    log_prefix = (Back.BLACK + Fore.GREEN + time.strftime("%H:%M:%S UTC", time.gmtime()) + Back.RESET + Fore.WHITE + Style.BRIGHT)
     print(f"{log_prefix} Logged in as: {Fore.YELLOW + client.user.name}")
     print(f"{log_prefix} Bot ID: {Fore.YELLOW + str(client.user.id)}")
     print(f"{log_prefix} Discord Version: {Fore.YELLOW + discord.__version__}")
     print(f"{log_prefix} Python Version: {Fore.YELLOW + str(platform.python_version())}")
+    print(Back.RESET + Fore.RESET + Style.RESET_ALL)
 
     # Code that only works on the Main Bot and not the Test Bot
     if client.user.id == static.bot_id:

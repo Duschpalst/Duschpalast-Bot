@@ -1,15 +1,16 @@
-import datetime
-
+import re
+from ast import literal_eval
+from datetime import datetime
 import discord
 from discord import Option, Embed, default_permissions
 from discord.ext import commands
-from discord.ui import View, Button, InputText, Select
+from discord.ui import View, Button, InputText
 
-from static import emojis
+from static import emojis, client
 from utils.user.cmd_reward import cmd_reward
 
 
-class Embed(commands.Cog):
+class EmbedCreator(commands.Cog):
 
     def __init__(self, bot):
         print(f"loaded Command {self.__cog_name__} Cog")
@@ -20,39 +21,45 @@ class Embed(commands.Cog):
     async def cmd(self, ctx: discord.ApplicationContext, channel: Option(discord.TextChannel, "Channel", required=True)):
         await cmd_reward(ctx)
 
-        msg = await start_page()
-        await ctx.respond(embed=msg[0], view=msg[1], ephemeral=True)
+        msg = await start_page(channel.id)
+        await ctx.respond(embeds=msg[0], view=msg[1], ephemeral=True)
 
 
 def setup(client):
-    client.add_cog(Embed(client))
+    client.add_cog(EmbedCreator(client))
 
 
-async def start_page(embed_data: discord.Embed = None):
+async def start_page(channel_id, embed_data=None):
+    created_emb = None
+    error_emb = None
+
     emb = Embed(
         color=0x2b2d31,
-        title="",
-        description=f'> ️{emojis["EMOJI"]} × Hier kannst du ein **Embed** erstellen.',
+        title=f'{emojis["chat"]} × Hier kannst du ein **Embed** erstellen.',
+        description=f'',
     )
 
     emb.timestamp = datetime.now()
-    emb.set_author(name='Duschpalast Bot | Embed', icon_url=self.bot.user.avatar.url)
-    emb.set_footer(text='Duschpalast Bot | Embed')
+    emb.set_author(name='Duschpalast Bot | Embed Creator', icon_url=client.user.avatar.url)
+    emb.set_footer(text='Duschpalast Bot | Embed Creator')
 
     emb.add_field(
-        name=f"{emojis['EMOJI']} | Erklärung",
-        value=f"↣ 1: [Klicke Hier](https://embed.dan.onl/) oder unten auf den Knopf um auf die Webseite zu kommen um ein Embed zu erstellen\n"
-              f'↣ 2: Sobald du zufrieden bist mit deinem Embed, wähle beim Output **"JSON representation"**\n'
-              f'↣ 3: Kopiere dann den Kompletten Output\n'
-              f'↣ 4: Klicken unten auf **Embed** und Füge den Eben Kopierten Code ein\n'
-              f'↣ 5: Gucke dir dein Embed nochmal an, ob es dir gefällt\n'
-              f'↣ 6: Sobald es dir gefällt, klicke auf **Fertig** und sende somit das Embed ab\n',
+        name=f"{emojis['info']} | Erklärung",
+        value="> **↣ 1:** [Klicke hier](https://embed.dan.onl/) oder unten auf den Knopf, um auf die Webseite zu gelangen und ein Embed zu erstellen.\n"
+              "> **↣ 2:** Sobald du zufrieden bist mit deinem Embed, wähle beim Output **'JSON representation'**.\n"
+              "> **↣ 3:** Kopiere dann den gesamten Output.\n"
+              "> **↣ 4:** Klicke unten auf **Embed** und füge den zuvor kopierten Code ein.\n"
+              "> **↣ 5:** Überprüfe dein Embed, ob es dir gefällt.\n"
+              "> **↣ 6:** Wenn du zufrieden bist, klicke auf **Fertig** und sende das Embed ab.\n",
         inline=True
     )
 
     if embed_data:
         try:
-            created_emb = discord.Embed(
+            embed_data = re.sub(r'\btrue\b', 'True', embed_data)
+            embed_data = literal_eval(embed_data)
+
+            created_emb = Embed(
                 title=embed_data.get('title'),
                 url=embed_data.get('url'),
                 description=embed_data.get('description'),
@@ -81,40 +88,47 @@ async def start_page(embed_data: discord.Embed = None):
         except:
             error_emb = Embed(
                 color=0xFF0000,
-                title="",
-                description=f'> ️{emojis["EMOJI"]} × Hier kannst du ein **Embed** erstellen.',
+                title="Fehler",
+                description=f'> ️{emojis["cross"]} × Ein **Fehler** ist aufgetreten. Bitte prüfe, ob du den **JSON-Code** richtig kopiert und eingefügt hast.',
             )
 
     view = View(timeout=None)
     button1 = Button(label="Embed", custom_id="embed", style=discord.ButtonStyle.blurple)
     button2 = Button(label="Creator Webseite", url="https://embed.dan.onl/")
-    button3 = Button(label="Fertig", custom_id="done", style=discord.ButtonStyle.green, disabled=(if not embed_data))
+    button3 = Button(label="Fertig", custom_id="done", style=discord.ButtonStyle.green, disabled=not bool(created_emb))
 
     view.add_item(button1)
     view.add_item(button2)
     view.add_item(button3)
 
+    async def btn_callback(interaction: discord.Interaction):
+        if interaction.custom_id == "embed":
+            await interaction.response.send_modal(EmbedModal(title="Embed Code", custom_id=str(channel_id)))
+        elif interaction.custom_id == "done":
+            selected_channel = await client.fetch_channel(channel_id)
+            await selected_channel.send(embed=created_emb)
+
+            await interaction.response.edit_message(embed=Embed(color=discord.Color.green(), title="Fertig"), view=None)
+
     button1.callback = btn_callback
     button2.callback = btn_callback
     button3.callback = btn_callback
 
-    return emb
-
-
-async def btn_callback(interaction: discord.Interaction):
-    print(interaction)
-    print(interaction.custom_id)
-    if interaction.custom_id == "embed":
-        await interaction.response.send_modal(EmbedModal(title="Embed Code"))
+    if created_emb:
+        return [emb, created_emb], view
+    elif error_emb:
+        return [emb, error_emb], view
+    else:
+        return [emb], view
 
 
 class EmbedModal(discord.ui.Modal):
     def __init__(self, *args, **kwargs):
         super().__init__(
             InputText(
-                label="JSON Code",
-                placeholder="Füge hier den JSON Code von https://embed.dan.onl/ ein",
-                style=discord.TextStyle.long
+                label="JSON-Code",
+                placeholder="Füge hier den JSON-Code von https://embed.dan.onl/ ein",
+                style=discord.InputTextStyle.long
             ),
 
             *args,
@@ -122,7 +136,5 @@ class EmbedModal(discord.ui.Modal):
         )
 
     async def callback(self, interaction: discord.Interaction):
-        print(interaction)
-        print(self.children[0].value)
-
-        await interaction.response.edit_message(embed=(await start_page(interaction.guild))[0], view=view)
+        msg = await start_page(self.custom_id, self.children[0].value)
+        await interaction.response.edit_message(embeds=msg[0], view=msg[1])
