@@ -152,6 +152,9 @@ admin_cmds = [
     ["remove-level [User] [Level]",
     "Entferne einem Benutzer eine bestimmte Anzahl von Leveln."],
 
+    ["embed",
+     "Erstelle ein Custom Embed."],
+
     ["welcome-msg",
      "Verwalte die Willkommensnachricht im Allgemeinchat für neue Mitglieder auf dem Server."],
 

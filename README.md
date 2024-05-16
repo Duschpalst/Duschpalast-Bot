@@ -4,6 +4,7 @@
 |-------------|:-------------------:|
 | clear       |         ✔️          |
 | daily       |          ❌          |
+| embed       |         ✔️          |
 | help        |          ❌          |
 | leaderboard |          ❌          |
 | level       |          ❌          |
@@ -17,11 +18,11 @@
 
 ### Code Statistics
 
-- **Total Lines:** 2909
-- **Source Code Lines:** 2161 (74%)
-- **Comment Lines:** 29 (1%)
-- **Blank Lines:** 719 (25%)\
-(last update: 15.12.2023)
+- **Total Lines:** 3595
+- **Source Code Lines:** 2624 (73%)
+- **Comment Lines:** 67 (2%)
+- **Blank Lines:** 904 (25%)\
+(last update: 16.05.2024)
 
 ## FAQ
 

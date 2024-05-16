@@ -16,7 +16,7 @@ class EmbedCreator(commands.Cog):
         print(f"loaded Command {self.__cog_name__} Cog")
         self.bot = bot
 
-    @commands.slash_command(name="embed", description="🗑️ | Erstelle ein Embed")
+    @commands.slash_command(name="embed", description="💬️ | Erstelle ein Embed")
     @default_permissions(kick_members=True)
     async def cmd(self, ctx: discord.ApplicationContext, channel: Option(discord.TextChannel, "Channel", required=True)):
         await cmd_reward(ctx)
